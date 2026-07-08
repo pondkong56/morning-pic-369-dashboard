@@ -1,0 +1,3137 @@
+﻿<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Morning Pic 369 App</title>
+  <style>
+    :root {
+      --bg: #f8f1e5;
+      --bg-soft: #fff8ef;
+      --shell: #fffdf8;
+      --card: #ffffff;
+      --line: #efe4d2;
+      --ink: #163b73;
+      --text: #4d6283;
+      --muted: #8b99ae;
+      --navy: #163b73;
+      --navy-soft: #eef3fb;
+      --sun: #ffb92b;
+      --sun-deep: #ff7d1f;
+      --sun-soft: #fff4dd;
+      --ok: #e9f4ff;
+      --ok-ink: #315d98;
+      --warn: #fff1dc;
+      --warn-ink: #b36a16;
+      --danger: #fff0ef;
+      --danger-ink: #d55a5a;
+      --shadow: 0 24px 60px rgba(22, 59, 115, 0.12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: Inter, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.92), transparent 28%),
+        radial-gradient(circle at top right, rgba(255,190,76,0.12), transparent 26%),
+        linear-gradient(180deg, #fff6ea 0%, #fbf2e5 16%, #f6edde 100%);
+      line-height: 1.45;
+    }
+
+    button, input, select { font: inherit; }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #fffdf8 0%, #fff8ef 100%);
+      border-right: 1px solid var(--line);
+      padding: 18px 14px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 6px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fffdf8;
+      flex: 0 0 auto;
+    }
+
+    .brand-mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand-copy span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .menu {
+      display: grid;
+      gap: 8px;
+    }
+
+    .menu button {
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      padding: 11px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .menu button.active {
+      background: linear-gradient(135deg, #fff4e2, #fffaf1);
+      color: var(--ink);
+      box-shadow: inset 0 0 0 1px #ffe5c2;
+    }
+
+    .menu-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e4d8c7;
+      background: #fff;
+      color: var(--navy);
+      font-size: 11px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-actions {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 10px;
+    }
+
+    .ghost-btn,
+    .primary-btn {
+      min-height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      padding: 0 14px;
+      font-weight: 800;
+    }
+
+    .ghost-btn {
+      background: #fff;
+      color: var(--text);
+    }
+
+    .primary-btn {
+      border: 0;
+      background: linear-gradient(135deg, var(--navy), #2858a2);
+      color: #fff;
+    }
+
+    .sidebar-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .main {
+      padding: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.92);
+      border-radius: 24px;
+      padding: 16px 18px;
+      box-shadow: 0 18px 40px rgba(22, 59, 115, 0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.02;
+    }
+
+    .topbar p {
+      margin: 6px 0 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .field {
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .content {
+      margin-top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .section {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.95);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2,
+    .section-head h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.08;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 4px 0 0;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .kpi-card,
+    .info-card,
+    .list-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 14px 34px rgba(54, 82, 75, 0.06);
+      min-width: 0;
+    }
+
+    .kpi-card .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .kpi-card .value {
+      display: block;
+      margin-top: 10px;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .kpi-card .hint {
+      display: block;
+      margin-top: 8px;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .chip.sun { background: #fff5e7; color: var(--navy); border-color: #ffe0b2; }
+    .chip.blue { background: #eef4ff; color: var(--navy); border-color: #dbe6fb; }
+    .chip.warn { background: var(--warn); color: var(--warn-ink); border-color: #ffd9a2; }
+    .chip.danger { background: var(--danger); color: var(--danger-ink); border-color: #ffd8d8; }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .package-card strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .package-card .price {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--navy);
+    }
+
+    .package-card p {
+      margin: 8px 0 0;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    .table th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .table tr:last-child td { border-bottom: 0; }
+
+    .stat-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .stat-row:last-child { border-bottom: 0; }
+    .stat-row strong { font-size: 14px; }
+    .stat-row span { color: var(--text); }
+
+    .empty-state {
+      border: 1px dashed #e7d8c4;
+      border-radius: 18px;
+      padding: 16px;
+      color: var(--text);
+      background: #fffaf3;
+      font-size: 13px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .form-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .field-block {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field-block label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .field-input {
+      width: 100%;
+      min-height: 40px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .inline-note {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .alert-card {
+      border: 1px solid #ffd9a2;
+      background: linear-gradient(135deg, #fff8ee, #fff2dc);
+    }
+
+    @media (max-width: 1100px) {
+      .app-shell,
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+      }
+
+      .kpi-grid,
+      .package-grid,
+      .form-grid,
+      .form-grid.three {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .main { padding: 12px; }
+      .topbar { padding: 14px; }
+      .section { padding: 14px; border-radius: 22px; }
+      .kpi-grid,
+      .package-grid,
+      .form-grid,
+      .form-grid.three {
+        grid-template-columns: 1fr;
+      }
+      .toolbar { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-label="Morning Pic 369 logo">
+          <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+            <rect x="6" y="6" width="52" height="40" rx="9" fill="#fffdf8" stroke="#163b73" stroke-width="4"/>
+            <path d="M14 41c8-1 16 1 22 6 6-5 14-7 22-6v5H14z" fill="#ff7d1f"/>
+            <path d="M14 41v5h20c4-3 7-6 12-8-8-3-12-2-18 3-5-3-9-5-14-5z" fill="#f5932f"/>
+            <circle cx="33" cy="27" r="10" fill="#ffbf2f"/>
+            <path d="M33 11v6M21 16l4 4M45 16l-4 4" stroke="#ffbf2f" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>Morning Pic</strong>
+          <span>แดชบอร์ดใช้งานจริง</span>
+        </div>
+      </div>
+
+      <nav class="menu" id="menu"></nav>
+
+      <div class="sidebar-actions">
+        <button class="primary-btn" id="resetDataBtn" type="button">รีเซ็ตข้อมูลตัวอย่าง</button>
+        <p class="sidebar-note">ข้อมูลทั้งหมดเก็บในเครื่องนี้ด้วย localStorage key: <strong>`morning_pic_369_dashboard`</strong></p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Morning Pic 369</h1>
+          <p id="pageSubtitle">ระบบรวมงานขาย แชท แอด งานผลิต และรายงาน</p>
+        </div>
+        <div class="toolbar">
+          <select class="field" id="rangeSelect">
+            <option value="today">วันนี้</option>
+            <option value="week" selected>สัปดาห์นี้</option>
+            <option value="month">เดือนนี้</option>
+          </select>
+          <input class="field" id="dateInput" type="date" value="2026-07-08">
+        </div>
+      </header>
+
+      <div class="content" id="content"></div>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "morning_pic_369_dashboard";
+    const SYNC_ENTITY_MAP = {
+      orders: { localKey: "orders", remoteEntity: "orders" },
+      production: { localKey: "production", remoteEntity: "production_jobs" }
+    };
+
+    const menus = [
+      { id: "overview", label: "ภาพรวมวันนี้", icon: "◫" },
+      { id: "content-calendar", label: "ปฏิทินคอนเทนต์เพจ", icon: "◷" },
+      { id: "weekly-ads", label: "คอนเทนต์ยิงแอดรายสัปดาห์", icon: "◉" },
+      { id: "ad-monitor", label: "มอนิเตอร์แอด", icon: "▤" },
+      { id: "chat-monitor", label: "มอนิเตอร์แอดมิน AI แชท", icon: "✉" },
+      { id: "orders", label: "ออเดอร์-วางบิล-ส่งงาน", icon: "↗" },
+      { id: "production", label: "ทีมผลิตงาน AI", icon: "✦" },
+      { id: "reports", label: "รายงานและตั้งค่า", icon: "◎" }
+    ];
+
+    const sampleData = {
+      settings: {
+        businessName: "Morning Pic 369",
+        channels: ["Facebook Page inbox", "แอดเข้า inbox", "LINE", "TikTok"],
+        team: ["เจ้าของ", "AI Assistant", "Freelance Editor"],
+        availableAgents: ["AI Assistant", "Content Agent", "Ad Agent", "Sales Agent", "Production Agent"],
+        chatStatuses: ["ใหม่", "กำลังคุย", "ส่งรูปแล้ว", "เสนอแพ็กแล้ว", "รอชำระ", "จ่ายแล้ว", "ปิดไม่ได้", "มีปัญหา"],
+        orderStatuses: ["รอข้อมูล", "รอชำระ", "ชำระครบ", "กำลังผลิต", "รอตรวจ", "ส่งแล้ว"],
+        productionStatuses: ["รอเริ่ม", "กำลังผลิต", "รอตรวจ", "แก้รอบ 1", "เกินรอบ", "ส่งแล้ว"],
+        rules: [
+          "เริ่มงานหลังชำระเงิน",
+          "แก้ฟรี 1 รอบ",
+          "ค่าแอดไม่เกิน 25% ของรายได้"
+        ]
+      },
+      packages: [
+        { id: "pkg-199", name: "แพ็ก 199", price: 199, images: 1, role: "ประตูเข้า", monthlyCap: 40, revisionFree: 0, deliveryDays: 1 },
+        { id: "pkg-799", name: "แพ็ก 799", price: 799, images: 7, role: "สะพาน", monthlyCap: 20, revisionFree: 1, deliveryDays: 3 },
+        { id: "pkg-2999", name: "แพ็ก 2,999", price: 2999, images: 15, role: "ตัวทำเงินหลัก", monthlyCap: 10, revisionFree: 1, deliveryDays: 7 },
+        { id: "pkg-5999", name: "แพ็ก 5,999", price: 5999, images: 30, role: "แพ็กใหญ่", monthlyCap: 4, revisionFree: 2, deliveryDays: 10 }
+      ],
+      businessTargets: {
+        monthlyMinimumRevenue: 30776,
+        monthlyGoodRevenue: 38382,
+        targetProfitLow: 20000,
+        targetProfitHigh: 30000,
+        monthlyReserveGoal: 15000,
+        cashReserveTarget: 300000,
+        expensesGoalLow: 5000,
+        expensesGoalHigh: 10000,
+        adsPercentMax: 25
+      },
+      automation: {
+        agentReady: true,
+        handoffMode: "human-in-the-loop",
+        queues: [
+          { id: "content-calendar", label: "Content Queue", defaultAgent: "Content Agent" },
+          { id: "weekly-ads", label: "Ad Creative Queue", defaultAgent: "Ad Agent" },
+          { id: "chat-monitor", label: "Sales Chat Queue", defaultAgent: "Sales Agent" },
+          { id: "production", label: "Production Queue", defaultAgent: "Production Agent" }
+        ]
+      },
+      chats: [
+        { id: "chat-01", customer: "ร้านกาแฟดริป", source: "แอด", status: "จ่ายแล้ว", sentPhoto: true, offer: "แพ็ก 799", value: 799, issue: "" },
+        { id: "chat-02", customer: "ร้านสบู่สมุนไพร", source: "เพจ", status: "จ่ายแล้ว", sentPhoto: true, offer: "แพ็ก 2,999", value: 2999, issue: "" },
+        { id: "chat-03", customer: "ร้านเสื้อผ้าเด็ก", source: "แอด", status: "เสนอแพ็กแล้ว", sentPhoto: false, offer: "แพ็ก 2,999", value: 2999, issue: "ยังไม่ส่งรูป" },
+        { id: "chat-04", customer: "คลินิกเสริมสวย", source: "แนะนำต่อ", status: "กำลังคุย", sentPhoto: true, offer: "แพ็ก 5,999", value: 5999, issue: "" },
+        { id: "chat-05", customer: "ร้านน้ำพริก", source: "TikTok", status: "ปิดไม่ได้", sentPhoto: false, offer: "แพ็ก 199", value: 199, issue: "ยังไม่พร้อมเริ่ม" }
+      ],
+      orders: [
+        { id: "ord-001", customer: "ร้านสบู่สมุนไพร", packageName: "แพ็ก 2,999", amount: 2999, paymentStatus: "ชำระครบ", billingStatus: "วางบิลแล้ว", fulfillmentStatus: "รอตรวจ" },
+        { id: "ord-002", customer: "ร้านกาแฟดริป", packageName: "แพ็ก 799", amount: 799, paymentStatus: "ชำระครบ", billingStatus: "รับเงินแล้ว", fulfillmentStatus: "ส่งแล้ว" },
+        { id: "ord-003", customer: "ร้านเบเกอรี่", packageName: "แพ็ก 199", amount: 199, paymentStatus: "ชำระครบ", billingStatus: "รับเงินแล้ว", fulfillmentStatus: "ส่งแล้ว" },
+        { id: "ord-004", customer: "ร้านเสื้อผ้าเด็ก", packageName: "แพ็ก 2,999", amount: 2999, paymentStatus: "รอชำระ", billingStatus: "ยังไม่วางบิล", fulfillmentStatus: "รอข้อมูล" }
+      ],
+      production: [
+        { id: "prod-01", customer: "ร้านสบู่สมุนไพร", packageName: "แพ็ก 2,999", images: 15, owner: "Freelance Editor", dueDate: "2026-07-12", status: "รอตรวจ", revisions: 1, issue: "" },
+        { id: "prod-02", customer: "ร้านเสื้อผ้าเด็ก", packageName: "แพ็ก 2,999", images: 15, owner: "เจ้าของ", dueDate: "2026-07-14", status: "รอเริ่ม", revisions: 0, issue: "รอลูกค้าส่งรูป" },
+        { id: "prod-03", customer: "ร้านกาแฟดริป", packageName: "แพ็ก 799", images: 7, owner: "AI Assistant", dueDate: "2026-07-08", status: "ส่งแล้ว", revisions: 0, issue: "" }
+      ],
+      adCampaigns: [
+        { id: "ad-01", name: "แอดร้านอาหาร July", budgetPerDay: 300, spend: 1000, targetPackage: "แพ็ก 799", chats: 20, sentPhotoCount: 8, paidOrders: 4, revenue: 3196 },
+        { id: "ad-02", name: "แอดแพ็ก 2,999", budgetPerDay: 450, spend: 2200, targetPackage: "แพ็ก 2,999", chats: 22, sentPhotoCount: 10, paidOrders: 2, revenue: 5998 }
+      ],
+      contentPosts: [
+        { id: "post-01", date: "2026-07-09", channel: "Facebook", title: "ก่อน-หลัง ร้านกาแฟ", status: "นัดลง", reach: 0, chatCount: 0, paidOrderCount: 0, revenue: 0 },
+        { id: "post-02", date: "2026-07-10", channel: "Facebook", title: "วิธีเริ่มขายด้วยภาพแพ็ก 199", status: "รอตรวจ", reach: 0, chatCount: 0, paidOrderCount: 0, revenue: 0 },
+        { id: "post-03", date: "2026-07-06", channel: "TikTok", title: "ลูกค้าจริงใช้แพ็ก 799", status: "ลงแล้ว", reach: 2800, chatCount: 7, paidOrderCount: 1, revenue: 799 }
+      ],
+      weeklyAdCreatives: [
+        { id: "creative-01", week: "2026-W28", title: "before/after ร้านกาแฟ", angle: "เห็นของแล้วอยากซื้อ", targetPackage: "แพ็ก 799", status: "พร้อมยิง" },
+        { id: "creative-02", week: "2026-W28", title: "เปรียบเทียบภาพขายก่อน-หลัง", angle: "ภาพขายได้จริง", targetPackage: "แพ็ก 2,999", status: "กำลังทดสอบ" }
+      ],
+      expenses: [
+        { id: "exp-01", label: "ค่าแอดเดือนนี้", amount: 3200, category: "ads" },
+        { id: "exp-02", label: "ค่าฟรีแลนซ์ผลิตงาน", amount: 4800, category: "production" }
+      ],
+      cashReserve: [
+        { month: "2026-07", profit: 12000, saved: 15000, total: 87000 }
+      ]
+    };
+
+    let state = {
+      activeMenu: "overview",
+      range: "week",
+      date: "2026-07-08",
+      data: loadData()
+    };
+
+    deriveTargetsFromPackages();
+    saveData();
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function isoNow() {
+      return new Date().toISOString();
+    }
+
+    function buildClientId() {
+      const seeded = `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+      return `browser-${seeded}`;
+    }
+
+    function buildOpId() {
+      return `op-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+    }
+
+    function ensureSyncState(data) {
+      data.sync = data.sync || {};
+      data.sync.mode = data.sync.mode || "local-first";
+      data.sync.backendStatus = data.sync.backendStatus || "not-connected";
+      data.sync.clientId = data.sync.clientId || buildClientId();
+      data.sync.lastAttemptAt = data.sync.lastAttemptAt || "";
+      data.sync.lastSuccessAt = data.sync.lastSuccessAt || "";
+      data.sync.outbox = Array.isArray(data.sync.outbox) ? data.sync.outbox : [];
+      data.sync.history = Array.isArray(data.sync.history) ? data.sync.history : [];
+      return data;
+    }
+
+    function ensureSyncRecord(record, remoteEntity, defaults = {}) {
+      const createdAt = record.createdAt || record.updatedAt || isoNow();
+      return {
+        entity: remoteEntity,
+        version: Number(record.version || 1),
+        createdAt,
+        updatedAt: record.updatedAt || createdAt,
+        updatedBy: record.updatedBy || "owner",
+        syncStatus: record.syncStatus || "synced",
+        lastSyncedAt: record.lastSyncedAt || "",
+        lastError: record.lastError || "",
+        ...defaults,
+        ...record
+      };
+    }
+
+    function touchSyncRecord(record, remoteEntity, actorId = "owner", actorType = "human") {
+      const now = isoNow();
+      record.entity = remoteEntity;
+      record.version = Number(record.version || 0) + 1;
+      record.createdAt = record.createdAt || now;
+      record.updatedAt = now;
+      record.updatedBy = actorId;
+      record.lastTouchedBy = actorId;
+      record.lastTouchedByType = actorType;
+      record.syncStatus = "pending";
+      record.lastError = "";
+      return record;
+    }
+
+    function queueSyncOperation(localKey, record, operationType = "UPSERT_ENTITY") {
+      const mapping = SYNC_ENTITY_MAP[localKey];
+      if (!mapping || !record?.id) return;
+      ensureSyncState(state.data);
+      const opId = buildOpId();
+      const nextRecord = clone(record);
+      state.data.sync.outbox = state.data.sync.outbox.filter((item) => {
+        return !(item.entity === mapping.remoteEntity && item.recordId === record.id && item.status === "pending");
+      });
+      state.data.sync.outbox.push({
+        id: opId,
+        opId,
+        type: operationType,
+        entity: mapping.remoteEntity,
+        localKey,
+        recordId: record.id,
+        status: "pending",
+        queuedAt: isoNow(),
+        record: nextRecord
+      });
+      state.data.sync.history = state.data.sync.history.slice(-11);
+      state.data.sync.history.unshift({
+        id: `history-${opId}`,
+        action: "queued",
+        entity: mapping.remoteEntity,
+        recordId: record.id,
+        at: isoNow()
+      });
+    }
+
+    function getSyncRecordsByEntity(localKey, recordId) {
+      return (state.data[localKey] || []).filter((item) => item.id === recordId);
+    }
+
+    function buildSyncPayload() {
+      ensureSyncState(state.data);
+      return {
+        businessId: "morning-pic-369",
+        clientId: state.data.sync.clientId,
+        sentAt: isoNow(),
+        operations: state.data.sync.outbox
+          .filter((item) => item.status === "pending")
+          .map((item) => ({
+            opId: item.opId,
+            type: item.type,
+            entity: item.entity,
+            record: clone(item.record)
+          }))
+      };
+    }
+
+    function exportSyncPayload() {
+      const payload = buildSyncPayload();
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "morning-pic-369-sync-payload.json";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function simulateSyncSuccess() {
+      ensureSyncState(state.data);
+      const now = isoNow();
+      const pendingItems = state.data.sync.outbox.filter((item) => item.status === "pending");
+      if (!pendingItems.length) return;
+
+      pendingItems.forEach((item) => {
+        const records = getSyncRecordsByEntity(item.localKey, item.recordId);
+        records.forEach((record) => {
+          record.syncStatus = "synced";
+          record.lastSyncedAt = now;
+          record.lastError = "";
+        });
+        item.status = "accepted";
+      });
+
+      state.data.sync.backendStatus = "ready-for-worker";
+      state.data.sync.lastAttemptAt = now;
+      state.data.sync.lastSuccessAt = now;
+      state.data.sync.history = state.data.sync.history.slice(-11);
+      state.data.sync.history.unshift({
+        id: `history-sync-${Date.now()}`,
+        action: "simulated-sync",
+        entity: "batch",
+        recordId: `${pendingItems.length} records`,
+        at: now
+      });
+      saveData();
+      render();
+    }
+
+    function ensureAgentReadyItem(item, defaults = {}) {
+      return {
+        executionMode: "manual",
+        assignedAgent: "",
+        agentStatus: "idle",
+        lastTouchedBy: "owner",
+        lastTouchedByType: "human",
+        handoffNote: "",
+        ...defaults,
+        ...item
+      };
+    }
+
+    function ensureAgentReadySchema(data) {
+      data.settings = data.settings || {};
+      data.settings.availableAgents = data.settings.availableAgents || ["AI Assistant", "Content Agent", "Ad Agent", "Sales Agent", "Production Agent"];
+      ensureSyncState(data);
+      data.automation = data.automation || {
+        agentReady: true,
+        handoffMode: "human-in-the-loop",
+        queues: [
+          { id: "content-calendar", label: "Content Queue", defaultAgent: "Content Agent" },
+          { id: "weekly-ads", label: "Ad Creative Queue", defaultAgent: "Ad Agent" },
+          { id: "chat-monitor", label: "Sales Chat Queue", defaultAgent: "Sales Agent" },
+          { id: "production", label: "Production Queue", defaultAgent: "Production Agent" }
+        ]
+      };
+
+      data.contentPosts = (data.contentPosts || []).map((item) => ensureAgentReadyItem(item, { agentType: "content" }));
+      data.weeklyAdCreatives = (data.weeklyAdCreatives || []).map((item) => ensureAgentReadyItem(item, { agentType: "ad-creative" }));
+      data.adCampaigns = (data.adCampaigns || []).map((item) => ensureAgentReadyItem(item, { agentType: "ad-ops" }));
+      data.chats = (data.chats || []).map((item) => ensureAgentReadyItem(item, { agentType: "sales-chat" }));
+      data.orders = (data.orders || []).map((item) => ensureSyncRecord(ensureAgentReadyItem(item, { agentType: "order-ops" }), "orders"));
+      data.production = (data.production || []).map((item) => ensureSyncRecord(ensureAgentReadyItem(item, { agentType: "production" }), "production_jobs"));
+
+      return data;
+    }
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          const seeded = ensureAgentReadySchema(clone(sampleData));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
+          return seeded;
+        }
+        return ensureAgentReadySchema(JSON.parse(raw));
+      } catch {
+        return ensureAgentReadySchema(clone(sampleData));
+      }
+    }
+
+    function saveData() {
+      state.data = ensureAgentReadySchema(state.data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    function resetData() {
+      state.data = ensureAgentReadySchema(clone(sampleData));
+      deriveTargetsFromPackages();
+      saveData();
+      render();
+    }
+
+    function money(value) {
+      return new Intl.NumberFormat("th-TH").format(value);
+    }
+
+    function isPaidOrderStatus(value) {
+      return value === (state.data.settings.orderStatuses?.[2] || "");
+    }
+
+    function countPaidOrders() {
+      return state.data.orders.filter((order) => order.paymentStatus === "ชำระครบ").length;
+    }
+
+    function totalRevenue() {
+      return state.data.orders
+        .filter((order) => order.paymentStatus === "ชำระครบ")
+        .reduce((sum, order) => sum + order.amount, 0);
+    }
+
+    function totalExpenses() {
+      return state.data.expenses.reduce((sum, item) => sum + item.amount, 0);
+    }
+
+    function adsExpenseTotal() {
+      return state.data.expenses
+        .filter((item) => item.category === "ads")
+        .reduce((sum, item) => sum + item.amount, 0);
+    }
+
+    function totalImagesCapacity() {
+      return state.data.packages.reduce((sum, item) => sum + (item.images * item.monthlyCap), 0);
+    }
+
+    function totalImagesInProduction() {
+      return state.data.production.reduce((sum, item) => sum + item.images, 0);
+    }
+
+    function getPackageById(id) {
+      return state.data.packages.find((item) => item.id === id);
+    }
+
+    function getPackageByName(name) {
+      return state.data.packages.find((item) => item.name === name);
+    }
+
+    function countPaidOrdersByPackage(name) {
+      return state.data.orders.filter((order) => order.packageName === name && order.paymentStatus === "ชำระครบ").length;
+    }
+
+    function totalOutstandingRevenue() {
+      return state.data.orders
+        .filter((order) => order.paymentStatus !== "ชำระครบ")
+        .reduce((sum, order) => sum + order.amount, 0);
+    }
+
+    function createProductionFromOrder(order) {
+      const exists = state.data.production.some((job) => job.orderId === order.id);
+      if (exists) return null;
+      const pkg = getPackageByName(order.packageName);
+      const startStatus = state.data.settings.productionStatuses?.[0] || "รอเริ่ม";
+      const job = ensureSyncRecord(ensureAgentReadyItem({
+        id: `prod-${Date.now()}` ,
+        orderId: order.id,
+        customer: order.customer,
+        packageName: order.packageName,
+        images: pkg ? pkg.images : 0,
+        owner: state.data.settings.team?.[0] || "เจ้าของ",
+        dueDate: state.date,
+        status: startStatus,
+        revisions: 0,
+        issue: ""
+      }, { agentType: "production" }), "production_jobs");
+      touchSyncRecord(job, "production_jobs");
+      state.data.production.push(job);
+      queueSyncOperation("production", job);
+      return job;
+    }
+
+    function addOrder(form) {
+      const pkg = getPackageByName(form.packageName);
+      if (!form.customer || !pkg) return;
+      const nextOrder = ensureSyncRecord(ensureAgentReadyItem({
+        id: `ord-${Date.now()}` ,
+        customer: form.customer,
+        packageName: pkg.name,
+        amount: pkg.price,
+        paymentStatus: form.paymentStatus,
+        billingStatus: form.billingStatus,
+        fulfillmentStatus: form.fulfillmentStatus
+      }, { agentType: "order-ops" }), "orders");
+      touchSyncRecord(nextOrder, "orders");
+      state.data.orders.unshift(nextOrder);
+      queueSyncOperation("orders", nextOrder);
+      if (isPaidOrderStatus(nextOrder.paymentStatus)) {
+        createProductionFromOrder(nextOrder);
+      }
+      saveData();
+      render();
+    }
+
+    function updateOrderField(id, field, value) {
+      const order = state.data.orders.find((item) => item.id === id);
+      if (!order) return;
+      const paidStatus = state.data.settings.orderStatuses?.[2] || "ชำระครบ";
+      const deliveredOrderStatus = state.data.settings.orderStatuses?.[5] || "ส่งแล้ว";
+      const deliveredProductionStatus = state.data.settings.productionStatuses?.[5] || "ส่งแล้ว";
+      const startProductionStatus = state.data.settings.productionStatuses?.[0] || "รอเริ่ม";
+      order[field] = value;
+      if (field === "paymentStatus" && value === paidStatus) {
+        createProductionFromOrder(order);
+      }
+      const linkedJob = state.data.production.find((item) => item.orderId === id || (item.customer === order.customer && item.packageName === order.packageName));
+      if (field === "fulfillmentStatus" && value === deliveredOrderStatus && linkedJob) {
+        linkedJob.status = deliveredProductionStatus;
+      }
+      if (field === "paymentStatus" && value !== paidStatus && linkedJob && linkedJob.status === startProductionStatus) {
+        linkedJob.issue = "รอชำระ";
+      }
+      if (linkedJob) {
+        touchSyncRecord(linkedJob, "production_jobs");
+        queueSyncOperation("production", linkedJob);
+      }
+      touchSyncRecord(order, "orders");
+      queueSyncOperation("orders", order);
+      saveData();
+      render();
+    }
+
+    function bindOrderEditors() {
+      const addForm = document.getElementById("orderAddForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addOrder({
+            customer: formData.get("customer"),
+            packageName: formData.get("packageName"),
+            paymentStatus: formData.get("paymentStatus"),
+            billingStatus: formData.get("billingStatus"),
+            fulfillmentStatus: formData.get("fulfillmentStatus")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-order-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateOrderField(event.target.dataset.orderId, event.target.dataset.field, event.target.value);
+        });
+      });
+    }
+
+    function addProductionJob(form) {
+      if (!form.customer || !form.packageName) return;
+      const job = ensureSyncRecord(ensureAgentReadyItem({
+        id: `prod-${Date.now()}` ,
+        orderId: form.orderId || "",
+        customer: form.customer,
+        packageName: form.packageName,
+        images: Number(form.images || 0),
+        owner: form.owner,
+        dueDate: form.dueDate,
+        status: form.status,
+        revisions: Number(form.revisions || 0),
+        issue: form.issue || ""
+      }, { agentType: "production" }), "production_jobs");
+      touchSyncRecord(job, "production_jobs");
+      state.data.production.unshift(job);
+      queueSyncOperation("production", job);
+      saveData();
+      render();
+    }
+
+    function updateProductionField(id, field, value) {
+      const job = state.data.production.find((item) => item.id === id);
+      if (!job) return;
+      const deliveredOrderStatus = state.data.settings.orderStatuses?.[5] || "ส่งแล้ว";
+      const deliveredProductionStatus = state.data.settings.productionStatuses?.[5] || "ส่งแล้ว";
+      const overRevisionStatus = state.data.settings.productionStatuses?.[4] || "เกินรอบ";
+      job[field] = field === "revisions" || field === "images" ? Number(value || 0) : value;
+      if (field === "status" && value === deliveredProductionStatus && job.orderId) {
+        const order = state.data.orders.find((item) => item.id === job.orderId);
+        if (order) {
+          order.fulfillmentStatus = deliveredOrderStatus;
+          touchSyncRecord(order, "orders");
+          queueSyncOperation("orders", order);
+        }
+      }
+      if (field === "revisions") {
+        job.status = job.revisions > 1 ? overRevisionStatus : job.status;
+      }
+      touchSyncRecord(job, "production_jobs");
+      queueSyncOperation("production", job);
+      saveData();
+      render();
+    }
+
+    function bindProductionEditors() {
+      const addForm = document.getElementById("productionAddForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addProductionJob({
+            orderId: formData.get("orderId"),
+            customer: formData.get("customer"),
+            packageName: formData.get("packageName"),
+            images: formData.get("images"),
+            owner: formData.get("owner"),
+            dueDate: formData.get("dueDate"),
+            status: formData.get("status"),
+            revisions: formData.get("revisions"),
+            issue: formData.get("issue")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-production-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateProductionField(event.target.dataset.productionId, event.target.dataset.field, event.target.value);
+        });
+      });
+    }
+
+    function addChat(form) {
+      if (!form.customer || !form.source) return;
+      state.data.chats.unshift(ensureAgentReadyItem({
+        id: `chat-${Date.now()}` ,
+        customer: form.customer,
+        source: form.source,
+        status: form.status,
+        sentPhoto: form.sentPhoto === "true",
+        offer: form.offer,
+        value: Number(form.value || 0),
+        issue: form.issue || ""
+      }, { agentType: "sales-chat" }));
+      saveData();
+      render();
+    }
+
+    function updateChatField(id, field, value) {
+      const chat = state.data.chats.find((item) => item.id === id);
+      if (!chat) return;
+      if (field === "sentPhoto") {
+        chat.sentPhoto = value === "true";
+      } else if (field === "value") {
+        chat.value = Number(value || 0);
+      } else {
+        chat[field] = value;
+      }
+      saveData();
+      render();
+    }
+
+    function createOrderFromChat(chatId) {
+      const chat = state.data.chats.find((item) => item.id === chatId);
+      if (!chat) return;
+      const hasOrder = state.data.orders.some((order) => order.customer === chat.customer && order.packageName === chat.offer);
+      if (hasOrder) return;
+      addOrder({
+        customer: chat.customer,
+        packageName: chat.offer,
+        paymentStatus: "ชำระครบ",
+        billingStatus: "วางบิลแล้ว",
+        fulfillmentStatus: "รอข้อมูล"
+      });
+    }
+
+    function bindChatEditors() {
+      const addForm = document.getElementById("chatAddForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addChat({
+            customer: formData.get("customer"),
+            source: formData.get("source"),
+            status: formData.get("status"),
+            sentPhoto: formData.get("sentPhoto"),
+            offer: formData.get("offer"),
+            value: formData.get("value"),
+            issue: formData.get("issue")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-chat-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateChatField(event.target.dataset.chatId, event.target.dataset.field, event.target.value);
+        });
+      });
+
+      document.querySelectorAll("[data-create-order-from-chat]").forEach((button) => {
+        button.addEventListener("click", () => {
+          createOrderFromChat(button.dataset.createOrderFromChat);
+        });
+      });
+    }
+
+    function addAdCampaign(form) {
+      if (!form.name || !form.targetPackage) return;
+      state.data.adCampaigns.unshift({
+        id: `ad-${Date.now()}`,
+        name: form.name,
+        budgetPerDay: Number(form.budgetPerDay || 0),
+        spend: Number(form.spend || 0),
+        targetPackage: form.targetPackage,
+        chats: Number(form.chats || 0),
+        sentPhotoCount: Number(form.sentPhotoCount || 0),
+        paidOrders: Number(form.paidOrders || 0),
+        revenue: Number(form.revenue || 0)
+      });
+
+      const adsExpense = state.data.expenses.find((item) => item.category === "ads");
+      if (adsExpense) {
+        adsExpense.amount = state.data.adCampaigns.reduce((sum, item) => sum + item.spend, 0);
+      }
+
+      saveData();
+      render();
+    }
+
+    function updateAdCampaignField(id, field, value) {
+      const campaign = state.data.adCampaigns.find((item) => item.id === id);
+      if (!campaign) return;
+      campaign[field] = ["budgetPerDay", "spend", "chats", "sentPhotoCount", "paidOrders", "revenue"].includes(field)
+        ? Number(value || 0)
+        : value;
+
+      const adsExpense = state.data.expenses.find((item) => item.category === "ads");
+      if (adsExpense) {
+        adsExpense.amount = state.data.adCampaigns.reduce((sum, item) => sum + item.spend, 0);
+      }
+
+      saveData();
+      render();
+    }
+
+    function bindAdEditors() {
+      const addForm = document.getElementById("adCampaignForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addAdCampaign({
+            name: formData.get("name"),
+            budgetPerDay: formData.get("budgetPerDay"),
+            spend: formData.get("spend"),
+            targetPackage: formData.get("targetPackage"),
+            chats: formData.get("chats"),
+            sentPhotoCount: formData.get("sentPhotoCount"),
+            paidOrders: formData.get("paidOrders"),
+            revenue: formData.get("revenue")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-ad-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateAdCampaignField(event.target.dataset.adId, event.target.dataset.field, event.target.value);
+        });
+      });
+    }
+
+    function addContentPost(form) {
+      if (!form.date || !form.title || !form.channel) return;
+      state.data.contentPosts.unshift({
+        id: `post-${Date.now()}`,
+        date: form.date,
+        channel: form.channel,
+        title: form.title,
+        owner: form.owner || "เจ้าของ",
+        status: form.status,
+        reach: Number(form.reach || 0),
+        chatCount: Number(form.chatCount || 0),
+        sentPhotoCount: Number(form.sentPhotoCount || 0),
+        paidOrderCount: Number(form.paidOrderCount || 0),
+        revenue: Number(form.revenue || 0)
+      });
+      saveData();
+      render();
+    }
+
+    function updateContentPostField(id, field, value) {
+      const post = state.data.contentPosts.find((item) => item.id === id);
+      if (!post) return;
+      post[field] = ["reach", "chatCount", "sentPhotoCount", "paidOrderCount", "revenue"].includes(field)
+        ? Number(value || 0)
+        : value;
+      saveData();
+      render();
+    }
+
+    function bindContentEditors() {
+      const addForm = document.getElementById("contentPostForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addContentPost({
+            date: formData.get("date"),
+            channel: formData.get("channel"),
+            title: formData.get("title"),
+            owner: formData.get("owner"),
+            status: formData.get("status"),
+            reach: formData.get("reach"),
+            chatCount: formData.get("chatCount"),
+            sentPhotoCount: formData.get("sentPhotoCount"),
+            paidOrderCount: formData.get("paidOrderCount"),
+            revenue: formData.get("revenue")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-content-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateContentPostField(event.target.dataset.contentId, event.target.dataset.field, event.target.value);
+        });
+      });
+    }
+
+    function addWeeklyCreative(form) {
+      if (!form.week || !form.title || !form.targetPackage) return;
+      state.data.weeklyAdCreatives.unshift({
+        id: `creative-${Date.now()}`,
+        week: form.week,
+        title: form.title,
+        angle: form.angle || "",
+        targetPackage: form.targetPackage,
+        campaignName: form.campaignName || "",
+        owner: form.owner || "เจ้าของ",
+        status: form.status,
+        chats: Number(form.chats || 0),
+        sentPhotoCount: Number(form.sentPhotoCount || 0),
+        paidOrders: Number(form.paidOrders || 0)
+      });
+      saveData();
+      render();
+    }
+
+    function updateWeeklyCreativeField(id, field, value) {
+      const creative = state.data.weeklyAdCreatives.find((item) => item.id === id);
+      if (!creative) return;
+      creative[field] = ["chats", "sentPhotoCount", "paidOrders"].includes(field)
+        ? Number(value || 0)
+        : value;
+      saveData();
+      render();
+    }
+
+    function bindWeeklyAdsEditors() {
+      const addForm = document.getElementById("weeklyCreativeForm");
+      if (addForm) {
+        addForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = new FormData(addForm);
+          addWeeklyCreative({
+            week: formData.get("week"),
+            title: formData.get("title"),
+            angle: formData.get("angle"),
+            targetPackage: formData.get("targetPackage"),
+            campaignName: formData.get("campaignName"),
+            owner: formData.get("owner"),
+            status: formData.get("status"),
+            chats: formData.get("chats"),
+            sentPhotoCount: formData.get("sentPhotoCount"),
+            paidOrders: formData.get("paidOrders")
+          });
+        });
+      }
+
+      document.querySelectorAll("[data-creative-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateWeeklyCreativeField(event.target.dataset.creativeId, event.target.dataset.field, event.target.value);
+        });
+      });
+    }
+
+    function deriveTargetsFromPackages() {
+      const pkg199 = getPackageById("pkg-199");
+      const pkg799 = getPackageById("pkg-799");
+      const pkg2999 = getPackageById("pkg-2999");
+      const pkg5999 = getPackageById("pkg-5999");
+
+      if (!pkg199 || !pkg799 || !pkg2999 || !pkg5999) {
+        return;
+      }
+
+      state.data.businessTargets.monthlyMinimumRevenue =
+        (pkg2999.price * 8) + (pkg799.price * 6) + (pkg199.price * 10);
+
+      state.data.businessTargets.monthlyGoodRevenue =
+        (pkg2999.price * 10) + (pkg799.price * 6) + (pkg5999.price * 1) + (pkg199.price * 8);
+    }
+
+    function updatePackageField(id, field, value) {
+      const pkg = getPackageById(id);
+      if (!pkg) return;
+      pkg[field] = value;
+
+      state.data.orders.forEach((order) => {
+        if (order.packageName === pkg.name) {
+          order.amount = pkg.price;
+        }
+      });
+
+      state.data.production.forEach((job) => {
+        if (job.packageName === pkg.name) {
+          job.images = pkg.images;
+        }
+      });
+
+      deriveTargetsFromPackages();
+      saveData();
+      render();
+    }
+
+    function updateTargetField(field, value) {
+      state.data.businessTargets[field] = value;
+      saveData();
+      render();
+    }
+
+    function updateExpenseField(id, value) {
+      const expense = state.data.expenses.find((item) => item.id === id);
+      if (!expense) return;
+      expense.amount = value;
+      saveData();
+      render();
+    }
+
+    function updateReserveSaved(value) {
+      const reserve = state.data.cashReserve[0];
+      const previousSaved = reserve.saved;
+      const baseTotal = reserve.total - previousSaved;
+      reserve.saved = value;
+      reserve.total = Math.max(baseTotal + value, value);
+      saveData();
+      render();
+    }
+
+    function bindTask3Editors() {
+      document.querySelectorAll("[data-package-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          const { packageId, field, type } = event.target.dataset;
+          const nextValue = type === "number" ? Number(event.target.value || 0) : event.target.value;
+          updatePackageField(packageId, field, nextValue);
+        });
+      });
+
+      document.querySelectorAll("[data-target-field]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateTargetField(event.target.dataset.targetField, Number(event.target.value || 0));
+        });
+      });
+
+      document.querySelectorAll("[data-expense-id]").forEach((input) => {
+        input.addEventListener("change", (event) => {
+          updateExpenseField(event.target.dataset.expenseId, Number(event.target.value || 0));
+        });
+      });
+
+      const reserveInput = document.querySelector("[data-reserve-saved]");
+      if (reserveInput) {
+        reserveInput.addEventListener("change", (event) => {
+          updateReserveSaved(Number(event.target.value || 0));
+        });
+      }
+    }
+
+    function renderMenu() {
+      const menuEl = document.getElementById("menu");
+      menuEl.innerHTML = menus.map((menu) => `
+        <button class="${state.activeMenu === menu.id ? "active" : ""}" data-menu="${menu.id}" type="button">
+          <span class="menu-icon">${menu.icon}</span>${menu.label}
+        </button>
+      `).join("");
+
+      menuEl.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.activeMenu = button.dataset.menu;
+          render();
+        });
+      });
+    }
+
+    function renderOverview() {
+      const revenue = totalRevenue();
+      const expenses = totalExpenses();
+      const adsExpense = adsExpenseTotal();
+      const paidOrders = countPaidOrders();
+      const sentPhoto = state.data.chats.filter((chat) => chat.sentPhoto).length;
+      const totalChats = state.data.chats.length;
+      const goal = state.data.businessTargets.monthlyMinimumRevenue;
+      const progress = goal > 0 ? Math.round((revenue / goal) * 1000) / 10 : 0;
+      const costPerPaid = paidOrders > 0 ? Math.round(adsExpense / paidOrders) : 0;
+      const pkg2999Paid = countPaidOrdersByPackage("แพ็ก 2,999");
+      const pkg2999 = getPackageById("pkg-2999");
+      const capacityUsage = totalImagesCapacity() > 0 ? Math.round((totalImagesInProduction() / totalImagesCapacity()) * 100) : 0;
+      const pkg2999Warning = pkg2999Paid >= 8;
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ภาพรวมวันนี้</h2>
+              <div class="section-sub">ตัวเลขที่กระทบเงินสด งานขาย และคิวผลิตของเดือนนี้</div>
+            </div>
+            <span class="chip sun">${progress}% ถึงเป้าขั้นต่ำ</span>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">แชทเข้า</span><span class="value">${totalChats}</span><span class="hint">จากทุกช่องทาง</span></article>
+            <article class="kpi-card"><span class="label">ส่งรูปสินค้า</span><span class="value">${sentPhoto}</span><span class="hint">${Math.round((sentPhoto / totalChats) * 100)}% ของแชททั้งหมด</span></article>
+            <article class="kpi-card"><span class="label">Paid Order</span><span class="value">${paidOrders}</span><span class="hint">นับเฉพาะชำระครบ</span></article>
+            <article class="kpi-card"><span class="label">ยอดขายรับเงินจริง</span><span class="value">${money(revenue)}</span><span class="hint">ค่าแอด ${money(adsExpense)}</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <div class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เป้ารายเดือน</h3>
+                  <div class="section-sub">ตัวเลขหลักที่ต้องเห็นก่อนตัดสินใจ</div>
+                </div>
+              </div>
+              <div class="chip-row">
+                <span class="chip sun">เป้าขั้นต่ำ ${money(goal)}</span>
+                <span class="chip blue">ยอดดี ${money(state.data.businessTargets.monthlyGoodRevenue)}</span>
+                <span class="chip warn">ขาดอีก ${money(Math.max(goal - revenue, 0))}</span>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>กำไรประมาณการ</strong><span>${money(revenue - expenses)} บาท</span></div>
+                <div class="stat-row"><strong>ค่าแอดต่อ Paid Order</strong><span>${money(costPerPaid)} บาท</span></div>
+                <div class="stat-row"><strong>เงินสดเย็นเดือนนี้</strong><span>${money(state.data.cashReserve[0].saved)} บาท</span></div>
+                <div class="stat-row"><strong>แพ็ก 2,999 ที่ปิดแล้ว</strong><span>${pkg2999Paid} / 8 งานเป้าขั้นต่ำ</span></div>
+              </div>
+            </div>
+            <div class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>คิวผลิต</h3>
+                  <div class="section-sub">ดูว่างานแน่นหรือยัง ก่อนดันแพ็ก 2,999 เพิ่ม</div>
+                </div>
+              </div>
+              <div class="chip-row">
+                <span class="chip blue">ภาพค้าง ${totalImagesInProduction()}</span>
+                <span class="chip sun">Capacity ${totalImagesCapacity()}</span>
+                <span class="chip ${pkg2999Warning ? "warn" : "blue"}">แพ็ก 2,999 ${pkg2999Paid}/${pkg2999 ? pkg2999.monthlyCap : 0}</span>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>งานรอตรวจ</strong><span>${state.data.production.filter((item) => item.status === "รอตรวจ").length} งาน</span></div>
+                <div class="stat-row"><strong>งานรอเริ่ม</strong><span>${state.data.production.filter((item) => item.status === "รอเริ่ม").length} งาน</span></div>
+                <div class="stat-row"><strong>งานเกินรอบแก้</strong><span>${state.data.production.filter((item) => item.revisions > 1).length} งาน</span></div>
+                <div class="stat-row"><strong>ใช้ capacity ไปแล้ว</strong><span>${capacityUsage}% ของเดือนนี้</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        ${pkg2999Warning ? `
+          <section class="section">
+            <div class="info-card alert-card">
+              <strong>ใกล้เต็มแพ็ก 2,999</strong>
+              <div class="inline-note">ตอนนี้ปิดแพ็ก 2,999 ไปแล้ว ${pkg2999Paid} งาน หากแตะ 8-10 งานควรเริ่มเตือนเรื่องคิวผลิตและวันส่ง</div>
+            </div>
+          </section>
+        ` : ""}
+      `;
+    }
+
+    function renderPackages() {
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>แพ็กและเป้าหมายธุรกิจ</h2>
+              <div class="section-sub">เริ่มต้นไว้ครบ 4 แพ็ก พร้อมราคา จำนวนภาพ และเพดานงานต่อเดือน</div>
+            </div>
+            <span class="chip blue">localStorage พร้อมใช้งาน</span>
+          </div>
+          <div class="package-grid">
+            ${state.data.packages.map((pkg) => `
+              <article class="info-card package-card">
+                <strong>${pkg.name}</strong>
+                <div class="price">${money(pkg.price)}</div>
+                <p>${pkg.images} ภาพ · ${pkg.role}</p>
+                <p>เพดาน ${pkg.monthlyCap} งาน/เดือน · แก้ฟรี ${pkg.revisionFree} รอบ</p>
+                <div class="form-grid">
+                  <div class="field-block">
+                    <label>ราคา</label>
+                    <input class="field-input" type="number" value="${pkg.price}" data-package-id="${pkg.id}" data-field="price" data-type="number">
+                  </div>
+                  <div class="field-block">
+                    <label>จำนวนภาพ</label>
+                    <input class="field-input" type="number" value="${pkg.images}" data-package-id="${pkg.id}" data-field="images" data-type="number">
+                  </div>
+                  <div class="field-block">
+                    <label>เพดานงาน/เดือน</label>
+                    <input class="field-input" type="number" value="${pkg.monthlyCap}" data-package-id="${pkg.id}" data-field="monthlyCap" data-type="number">
+                  </div>
+                  <div class="field-block">
+                    <label>บทบาท</label>
+                    <input class="field-input" type="text" value="${pkg.role}" data-package-id="${pkg.id}" data-field="role" data-type="text">
+                  </div>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderTableSection(title, subtitle, columns, rows) {
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>${title}</h2>
+              <div class="section-sub">${subtitle}</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>${columns.map((col) => `<th>${col}</th>`).join("")}</tr>
+              </thead>
+              <tbody>
+                ${rows.join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderContentCalendar() {
+      return renderTableSection(
+        "ปฏิทินคอนเทนต์เพจ",
+        "ติดตามโพสต์เพจ สถานะงาน และผลลัพธ์หลังลง",
+        ["วันที่", "ช่องทาง", "หัวข้อ", "สถานะ", "ผลลัพธ์"],
+        state.data.contentPosts.map((post) => `
+          <tr>
+            <td>${post.date}</td>
+            <td>${post.channel}</td>
+            <td>${post.title}</td>
+            <td>${post.status}</td>
+            <td>Reach ${money(post.reach)} · แชท ${post.chatCount} · ปิด ${post.paidOrderCount}</td>
+          </tr>
+        `)
+      );
+    }
+
+    function renderWeeklyAds() {
+      return renderTableSection(
+        "คอนเทนต์ยิงแอดรายสัปดาห์",
+        "แตกงานแอดเป็นชิ้นงาน พร้อม angle และแพ็กที่ต้องการขาย",
+        ["สัปดาห์", "ชิ้นงาน", "Angle", "แพ็กเป้าหมาย", "สถานะ"],
+        state.data.weeklyAdCreatives.map((item) => `
+          <tr>
+            <td>${item.week}</td>
+            <td>${item.title}</td>
+            <td>${item.angle}</td>
+            <td>${item.targetPackage}</td>
+            <td>${item.status}</td>
+          </tr>
+        `)
+      );
+    }
+
+    function renderContentCalendarV2() {
+      const posts = state.data.contentPosts;
+      const posted = posts.filter((item) => item.status === "ลงแล้ว");
+      const totalReach = posted.reduce((sum, item) => sum + Number(item.reach || 0), 0);
+      const totalChats = posted.reduce((sum, item) => sum + Number(item.chatCount || 0), 0);
+      const totalSent = posted.reduce((sum, item) => sum + Number(item.sentPhotoCount || 0), 0);
+      const totalPaid = posted.reduce((sum, item) => sum + Number(item.paidOrderCount || 0), 0);
+      const readyCount = posts.filter((item) => item.status === "นัดลง" || item.status === "รอตรวจ").length;
+      const channels = ["Facebook", "TikTok", "LINE", "Instagram"];
+      const statuses = ["ไอเดีย", "รอทำ", "รอตรวจ", "นัดลง", "ลงแล้ว"];
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ปฏิทินคอนเทนต์ลงเพจ</h2>
+              <div class="section-sub">วางโพสต์ล่วงหน้า ดูสถานะงาน และกรอกผลหลังลงเพื่อดูว่าโพสต์ไหนพาแชทและยอดขายเข้ามา</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">โพสต์ทั้งหมด</span><span class="value">${posts.length}</span><span class="hint">รวมทุกสถานะในคิว</span></article>
+            <article class="kpi-card"><span class="label">พร้อมลง/รอตรวจ</span><span class="value">${readyCount}</span><span class="hint">งานที่ต้องขยับต่อในรอบนี้</span></article>
+            <article class="kpi-card"><span class="label">Reach จากโพสต์ที่ลงแล้ว</span><span class="value">${money(totalReach)}</span><span class="hint">รวมจากโพสต์ที่กรอกผลแล้ว</span></article>
+            <article class="kpi-card"><span class="label">Paid Order จากคอนเทนต์</span><span class="value">${totalPaid}</span><span class="hint">แชท ${totalChats} รายการจากโพสต์ที่ลงแล้ว</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มโพสต์ใหม่</h3>
+                  <div class="section-sub">ใส่วันลง หัวข้อ คนรับผิดชอบ และเริ่มติดตามผลได้จากตารางด้านล่างทันที</div>
+                </div>
+              </div>
+              <form id="contentPostForm" class="form-grid three">
+                <div class="field-block">
+                  <label>วันที่ลง</label>
+                  <input class="field-input" name="date" type="date" value="${state.date}">
+                </div>
+                <div class="field-block">
+                  <label>ช่องทาง</label>
+                  <select class="field-input" name="channel">
+                    ${channels.map((channel) => `<option value="${channel}">${channel}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะ</label>
+                  <select class="field-input" name="status">
+                    ${statuses.map((status) => `<option value="${status}">${status}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>หัวข้อโพสต์</label>
+                  <input class="field-input" name="title" type="text" placeholder="เช่น before/after ร้านกาแฟย่านลาดพร้าว" required>
+                </div>
+                <div class="field-block">
+                  <label>คนรับผิดชอบ</label>
+                  <select class="field-input" name="owner">
+                    ${state.data.settings.team.map((person) => `<option value="${person}">${person}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มเข้าปฏิทิน</button>
+                </div>
+                <div class="field-block">
+                  <label>Reach</label>
+                  <input class="field-input" name="reach" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>แชทเข้า</label>
+                  <input class="field-input" name="chatCount" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>ส่งรูปสินค้า</label>
+                  <input class="field-input" name="sentPhotoCount" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>Paid Order</label>
+                  <input class="field-input" name="paidOrderCount" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>รายได้</label>
+                  <input class="field-input" name="revenue" type="number" value="0">
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>ภาพรวมคอนเทนต์ที่ลงแล้ว</h3>
+                  <div class="section-sub">เน้นดูว่าคอนเทนต์แบบไหนพาคนเข้าแชทและพาไปถึงการจ่ายเงินจริง</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>โพสต์ลงแล้ว</strong><span>${posted.length} โพสต์</span></div>
+                <div class="stat-row"><strong>แชทต่อ Reach</strong><span>${totalReach > 0 ? ((totalChats / totalReach) * 100).toFixed(2) : "0.00"}%</span></div>
+                <div class="stat-row"><strong>ส่งรูปต่อแชท</strong><span>${totalChats > 0 ? Math.round((totalSent / totalChats) * 100) : 0}%</span></div>
+                <div class="stat-row"><strong>Paid ต่อโพสต์ลงแล้ว</strong><span>${posted.length > 0 ? (totalPaid / posted.length).toFixed(1) : "0.0"} ออเดอร์</span></div>
+              </div>
+              <div class="inline-note">ถ้าโพสต์ไหนลงแล้วแต่ไม่มีแชทหรือไม่มีคนส่งรูปกลับมา คุณจะเห็นจากตารางล่างทันทีและใช้เป็นข้อมูลเลือกหัวข้อสัปดาห์ถัดไปได้</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ตารางคอนเทนต์</h2>
+              <div class="section-sub">แก้สถานะและกรอกผลลัพธ์ได้ตรงจากตารางนี้</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>วันที่</th>
+                  <th>ช่องทาง</th>
+                  <th>หัวข้อ</th>
+                  <th>คนรับผิดชอบ</th>
+                  <th>สถานะ</th>
+                  <th>Reach</th>
+                  <th>แชท</th>
+                  <th>ส่งรูป</th>
+                  <th>Paid</th>
+                  <th>รายได้</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${posts.map((post) => `
+                  <tr>
+                    <td><input class="field-input" type="date" value="${post.date}" data-content-id="${post.id}" data-field="date"></td>
+                    <td>
+                      <select class="field-input" data-content-id="${post.id}" data-field="channel">
+                        ${channels.map((channel) => `<option value="${channel}" ${post.channel === channel ? "selected" : ""}>${channel}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="text" value="${post.title}" data-content-id="${post.id}" data-field="title"></td>
+                    <td>
+                      <select class="field-input" data-content-id="${post.id}" data-field="owner">
+                        ${state.data.settings.team.map((person) => `<option value="${person}" ${(post.owner || "เจ้าของ") === person ? "selected" : ""}>${person}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-content-id="${post.id}" data-field="status">
+                        ${statuses.map((status) => `<option value="${status}" ${post.status === status ? "selected" : ""}>${status}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="number" value="${post.reach || 0}" data-content-id="${post.id}" data-field="reach"></td>
+                    <td><input class="field-input" type="number" value="${post.chatCount || 0}" data-content-id="${post.id}" data-field="chatCount"></td>
+                    <td><input class="field-input" type="number" value="${post.sentPhotoCount || 0}" data-content-id="${post.id}" data-field="sentPhotoCount"></td>
+                    <td><input class="field-input" type="number" value="${post.paidOrderCount || 0}" data-content-id="${post.id}" data-field="paidOrderCount"></td>
+                    <td><input class="field-input" type="number" value="${post.revenue || 0}" data-content-id="${post.id}" data-field="revenue"></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderWeeklyAdsV2() {
+      const creatives = state.data.weeklyAdCreatives;
+      const statuses = ["รอทำ", "รอตรวจ", "พร้อมยิง", "กำลังทดสอบ", "ชนะแล้ว", "พัก"];
+      const totalChats = creatives.reduce((sum, item) => sum + Number(item.chats || 0), 0);
+      const totalPaid = creatives.reduce((sum, item) => sum + Number(item.paidOrders || 0), 0);
+      const totalSent = creatives.reduce((sum, item) => sum + Number(item.sentPhotoCount || 0), 0);
+      const readyCount = creatives.filter((item) => item.status === "พร้อมยิง" || item.status === "กำลังทดสอบ").length;
+      const bestCreative = [...creatives].sort((a, b) => (b.paidOrders || 0) - (a.paidOrders || 0))[0];
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>คอนเทนต์ยิงแอดรายสัปดาห์</h2>
+              <div class="section-sub">แตกงานชิ้นโฆษณาเป็นรายสัปดาห์ ผูกกับแคมเปญ และดูได้ว่ามุมขายไหนพาคนส่งรูปและปิดงานได้จริง</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">ชิ้นงานแอดทั้งหมด</span><span class="value">${creatives.length}</span><span class="hint">รวมทุกสัปดาห์ที่เก็บไว้</span></article>
+            <article class="kpi-card"><span class="label">พร้อมยิง/กำลังทดสอบ</span><span class="value">${readyCount}</span><span class="hint">ชิ้นที่ยังต้องเฝ้าดูใกล้ ๆ</span></article>
+            <article class="kpi-card"><span class="label">แชทรวมจากชิ้นงาน</span><span class="value">${totalChats}</span><span class="hint">Paid ${totalPaid} จากงานที่กรอกผลแล้ว</span></article>
+            <article class="kpi-card"><span class="label">ตัวชนะตอนนี้</span><span class="value" style="font-size:22px;">${bestCreative ? bestCreative.targetPackage : "-"}</span><span class="hint">${bestCreative ? bestCreative.title : "ยังไม่มีผลลัพธ์พอ"}</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มชิ้นงานแอด</h3>
+                  <div class="section-sub">ใช้สำหรับวางแผนงานยิงทุกสัปดาห์ พร้อมระบุมุมขาย แคมเปญ และคนรับผิดชอบ</div>
+                </div>
+              </div>
+              <form id="weeklyCreativeForm" class="form-grid three">
+                <div class="field-block">
+                  <label>สัปดาห์</label>
+                  <input class="field-input" name="week" type="text" value="2026-W28" placeholder="เช่น 2026-W28">
+                </div>
+                <div class="field-block">
+                  <label>แพ็กเป้าหมาย</label>
+                  <select class="field-input" name="targetPackage">
+                    ${state.data.packages.map((pkg) => `<option value="${pkg.name}">${pkg.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะ</label>
+                  <select class="field-input" name="status">
+                    ${statuses.map((status) => `<option value="${status}">${status}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>ชื่อชิ้นงาน</label>
+                  <input class="field-input" name="title" type="text" placeholder="เช่น before/after ร้านเสื้อเด็ก" required>
+                </div>
+                <div class="field-block">
+                  <label>Angle</label>
+                  <input class="field-input" name="angle" type="text" placeholder="เช่น เห็นผลไว ขายง่ายขึ้น">
+                </div>
+                <div class="field-block">
+                  <label>ผูกกับแคมเปญ</label>
+                  <select class="field-input" name="campaignName">
+                    <option value="">ยังไม่ผูก</option>
+                    ${state.data.adCampaigns.map((campaign) => `<option value="${campaign.name}">${campaign.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>คนรับผิดชอบ</label>
+                  <select class="field-input" name="owner">
+                    ${state.data.settings.team.map((person) => `<option value="${person}">${person}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>แชท</label>
+                  <input class="field-input" name="chats" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>ส่งรูป</label>
+                  <input class="field-input" name="sentPhotoCount" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>Paid Order</label>
+                  <input class="field-input" name="paidOrders" type="number" value="0">
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มชิ้นงานแอด</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>สรุปมุมขายที่ควรดันต่อ</h3>
+                  <div class="section-sub">ใช้ดูว่ามุมขายแบบไหนกำลังชนะ และชิ้นไหนยังควรหยุดก่อนเพื่อไม่เผางบ</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>ชิ้นที่ชนะแล้ว</strong><span>${creatives.filter((item) => item.status === "ชนะแล้ว").length} ชิ้น</span></div>
+                <div class="stat-row"><strong>ชิ้นที่ยังทดสอบอยู่</strong><span>${creatives.filter((item) => item.status === "กำลังทดสอบ").length} ชิ้น</span></div>
+                <div class="stat-row"><strong>อัตราส่งรูปจากแอดครีเอทีฟ</strong><span>${totalChats > 0 ? Math.round((totalSent / totalChats) * 100) : 0}%</span></div>
+                <div class="stat-row"><strong>อัตราปิดจากแอดครีเอทีฟ</strong><span>${totalChats > 0 ? Math.round((totalPaid / totalChats) * 100) : 0}%</span></div>
+              </div>
+              <div class="inline-note">${bestCreative ? `ชิ้นที่เด่นตอนนี้คือ "${bestCreative.title}" สำหรับ ${bestCreative.targetPackage} ถ้ายังปิดได้ต่อเนื่องให้ทำเวอร์ชันต่อยอดอีก 2-3 ชิ้น` : "ยังไม่มีผลลัพธ์พอจะชี้ตัวชนะชัดเจน ลองเริ่มกรอกผลจากแต่ละชิ้นก่อน"}</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ตารางชิ้นงานแอด</h2>
+              <div class="section-sub">แก้สถานะ ผลลัพธ์ และการผูกแคมเปญได้จากตารางนี้</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>สัปดาห์</th>
+                  <th>ชิ้นงาน</th>
+                  <th>Angle</th>
+                  <th>แพ็ก</th>
+                  <th>แคมเปญ</th>
+                  <th>คนรับผิดชอบ</th>
+                  <th>สถานะ</th>
+                  <th>แชท</th>
+                  <th>ส่งรูป</th>
+                  <th>Paid</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${creatives.map((item) => `
+                  <tr>
+                    <td><input class="field-input" type="text" value="${item.week}" data-creative-id="${item.id}" data-field="week"></td>
+                    <td><input class="field-input" type="text" value="${item.title}" data-creative-id="${item.id}" data-field="title"></td>
+                    <td><input class="field-input" type="text" value="${item.angle || ""}" data-creative-id="${item.id}" data-field="angle"></td>
+                    <td>
+                      <select class="field-input" data-creative-id="${item.id}" data-field="targetPackage">
+                        ${state.data.packages.map((pkg) => `<option value="${pkg.name}" ${item.targetPackage === pkg.name ? "selected" : ""}>${pkg.name}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-creative-id="${item.id}" data-field="campaignName">
+                        <option value="">ยังไม่ผูก</option>
+                        ${state.data.adCampaigns.map((campaign) => `<option value="${campaign.name}" ${(item.campaignName || "") === campaign.name ? "selected" : ""}>${campaign.name}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-creative-id="${item.id}" data-field="owner">
+                        ${state.data.settings.team.map((person) => `<option value="${person}" ${(item.owner || "เจ้าของ") === person ? "selected" : ""}>${person}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-creative-id="${item.id}" data-field="status">
+                        ${statuses.map((status) => `<option value="${status}" ${item.status === status ? "selected" : ""}>${status}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="number" value="${item.chats || 0}" data-creative-id="${item.id}" data-field="chats"></td>
+                    <td><input class="field-input" type="number" value="${item.sentPhotoCount || 0}" data-creative-id="${item.id}" data-field="sentPhotoCount"></td>
+                    <td><input class="field-input" type="number" value="${item.paidOrders || 0}" data-creative-id="${item.id}" data-field="paidOrders"></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderAdMonitor() {
+      const totalAdSpend = adsExpenseTotal();
+      const revenue = totalRevenue();
+      const adPercent = revenue > 0 ? Math.round((totalAdSpend / revenue) * 100) : 0;
+      const maxAdPercent = state.data.businessTargets.adsPercentMax;
+      const weakQuality = state.data.adCampaigns.filter((ad) => ad.chats > 0 && (ad.sentPhotoCount / ad.chats) < 0.4);
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>มอนิเตอร์แอด</h2>
+              <div class="section-sub">ดูงบใช้จริง ต้นทุนต่อแชท ต้นทุนต่อปิด และเตือนเมื่อแอดเริ่มกินรายได้เกินกรอบ</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">ค่าแอดรวม</span><span class="value">${money(totalAdSpend)}</span><span class="hint">${adPercent}% ของรายได้รวม</span></article>
+            <article class="kpi-card"><span class="label">แชทจากแอด</span><span class="value">${state.data.adCampaigns.reduce((sum, ad) => sum + ad.chats, 0)}</span><span class="hint">ทุกแคมเปญรวมกัน</span></article>
+            <article class="kpi-card"><span class="label">Paid Order จากแอด</span><span class="value">${state.data.adCampaigns.reduce((sum, ad) => sum + ad.paidOrders, 0)}</span><span class="hint">รวมทุกแคมเปญ</span></article>
+            <article class="kpi-card"><span class="label">เตือนคุณภาพแชท</span><span class="value">${weakQuality.length}</span><span class="hint">แคมเปญส่งรูปต่ำกว่า 40%</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มแคมเปญแอด</h3>
+                  <div class="section-sub">กรอกงบ ใช้จริง แชท ส่งรูป ปิดขาย และรายได้ เพื่อให้ระบบคำนวณต่อทันที</div>
+                </div>
+              </div>
+              <form id="adCampaignForm" class="form-grid three">
+                <div class="field-block">
+                  <label>ชื่อแคมเปญ</label>
+                  <input class="field-input" name="name" type="text" placeholder="เช่น แอดร้านอาหาร July" required>
+                </div>
+                <div class="field-block">
+                  <label>งบ/วัน</label>
+                  <input class="field-input" name="budgetPerDay" type="number" value="300">
+                </div>
+                <div class="field-block">
+                  <label>ใช้จริง</label>
+                  <input class="field-input" name="spend" type="number" value="1000">
+                </div>
+                <div class="field-block">
+                  <label>แพ็กเป้าหมาย</label>
+                  <select class="field-input" name="targetPackage">
+                    ${state.data.packages.map((pkg) => `<option value="${pkg.name}">${pkg.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>แชท</label>
+                  <input class="field-input" name="chats" type="number" value="20">
+                </div>
+                <div class="field-block">
+                  <label>ส่งรูป</label>
+                  <input class="field-input" name="sentPhotoCount" type="number" value="8">
+                </div>
+                <div class="field-block">
+                  <label>Paid Order</label>
+                  <input class="field-input" name="paidOrders" type="number" value="4">
+                </div>
+                <div class="field-block">
+                  <label>รายได้</label>
+                  <input class="field-input" name="revenue" type="number" value="3196">
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มแคมเปญ</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card ${adPercent > maxAdPercent ? "alert-card" : ""}">
+              <div class="section-head">
+                <div>
+                  <h3>สัญญาณเตือน</h3>
+                  <div class="section-sub">ใช้ตัดสินใจว่าจะหยุด ปรับ หรือเพิ่มงบให้แคมเปญไหน</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>ค่าแอดต่อรายได้</strong><span>${adPercent}% / เพดาน ${maxAdPercent}%</span></div>
+                <div class="stat-row"><strong>แคมเปญคุณภาพแชทต่ำ</strong><span>${weakQuality.length} แคมเปญ</span></div>
+                <div class="stat-row"><strong>ค่าแอดรวมเดือนนี้</strong><span>${money(totalAdSpend)}</span></div>
+                <div class="stat-row"><strong>แชทจากแอดรวม</strong><span>${state.data.adCampaigns.reduce((sum, ad) => sum + ad.chats, 0)} แชท</span></div>
+              </div>
+              <div class="inline-note">
+                ${adPercent > maxAdPercent
+                  ? "ค่าแอดเกินกรอบที่ตั้งไว้แล้ว ควรเช็กแคมเปญที่ต้นทุนสูงหรือคุณภาพแชทต่ำก่อนเพิ่มงบ"
+                  : "ค่าแอดยังอยู่ในกรอบ แต่ควรดูแคมเปญที่ส่งรูปต่ำกว่า 40% เป็นพิเศษ"}
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>รายการแคมเปญ</h2>
+              <div class="section-sub">แก้ค่าจากตารางได้ตรง ๆ แล้ว CPP และภาพรวมค่าแอดจะขยับตามทันที</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>แคมเปญ</th>
+                  <th>งบ/วัน</th>
+                  <th>ใช้จริง</th>
+                  <th>แพ็กเป้าหมาย</th>
+                  <th>แชท</th>
+                  <th>ส่งรูป</th>
+                  <th>Paid Order</th>
+                  <th>ผลลัพธ์</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${state.data.adCampaigns.map((ad) => {
+                  const costPerChat = ad.chats > 0 ? Math.round(ad.spend / ad.chats) : 0;
+                  const costPerPaid = ad.paidOrders > 0 ? Math.round(ad.spend / ad.paidOrders) : 0;
+                  const sentRate = ad.chats > 0 ? Math.round((ad.sentPhotoCount / ad.chats) * 100) : 0;
+                  return `
+                    <tr>
+                      <td><input class="field-input" type="text" value="${ad.name}" data-ad-id="${ad.id}" data-field="name"></td>
+                      <td><input class="field-input" type="number" value="${ad.budgetPerDay}" data-ad-id="${ad.id}" data-field="budgetPerDay"></td>
+                      <td><input class="field-input" type="number" value="${ad.spend}" data-ad-id="${ad.id}" data-field="spend"></td>
+                      <td>
+                        <select class="field-input" data-ad-id="${ad.id}" data-field="targetPackage">
+                          ${state.data.packages.map((pkg) => `<option value="${pkg.name}" ${ad.targetPackage === pkg.name ? "selected" : ""}>${pkg.name}</option>`).join("")}
+                        </select>
+                      </td>
+                      <td><input class="field-input" type="number" value="${ad.chats}" data-ad-id="${ad.id}" data-field="chats"></td>
+                      <td><input class="field-input" type="number" value="${ad.sentPhotoCount}" data-ad-id="${ad.id}" data-field="sentPhotoCount"></td>
+                      <td><input class="field-input" type="number" value="${ad.paidOrders}" data-ad-id="${ad.id}" data-field="paidOrders"></td>
+                      <td>CPChat ${money(costPerChat)} · CPP ${money(costPerPaid)} · ส่งรูป ${sentRate}%</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderChatMonitor() {
+      const totalChats = state.data.chats.length;
+      const sentPhotoCount = state.data.chats.filter((chat) => chat.sentPhoto).length;
+      const paidChatCount = state.data.chats.filter((chat) => chat.status === "จ่ายแล้ว").length;
+      const issueChats = state.data.chats.filter((chat) => chat.issue || chat.status === "มีปัญหา" || chat.status === "ปิดไม่ได้");
+      const sentRate = totalChats > 0 ? Math.round((sentPhotoCount / totalChats) * 100) : 0;
+      const paidRate = totalChats > 0 ? Math.round((paidChatCount / totalChats) * 100) : 0;
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>มอนิเตอร์แอดมิน AI แชท</h2>
+              <div class="section-sub">บันทึกแชท วัด % ส่งรูป วัด % จ่ายจริง และดึงแชทที่พร้อมไปสร้างออเดอร์</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">แชททั้งหมด</span><span class="value">${totalChats}</span><span class="hint">รวมทุกแหล่งที่มา</span></article>
+            <article class="kpi-card"><span class="label">ส่งรูปแล้ว</span><span class="value">${sentRate}%</span><span class="hint">${sentPhotoCount} จาก ${totalChats} แชท</span></article>
+            <article class="kpi-card"><span class="label">จ่ายจริง</span><span class="value">${paidRate}%</span><span class="hint">${paidChatCount} แชทสถานะจ่ายแล้ว</span></article>
+            <article class="kpi-card"><span class="label">มีปัญหา</span><span class="value">${issueChats.length}</span><span class="hint">แยกไว้ติดตามทันที</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มแชทใหม่</h3>
+                  <div class="section-sub">ใส่แหล่งที่มา สถานะ แพ็กที่เสนอ และปัญหาได้ครบในจุดเดียว</div>
+                </div>
+              </div>
+              <form id="chatAddForm" class="form-grid three">
+                <div class="field-block">
+                  <label>ลูกค้า</label>
+                  <input class="field-input" name="customer" type="text" placeholder="เช่น ร้านชาไทยบ้านสวน" required>
+                </div>
+                <div class="field-block">
+                  <label>แหล่งที่มา</label>
+                  <select class="field-input" name="source">
+                    ${state.data.settings.channels.map((channel) => `<option value="${channel}">${channel}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะแชท</label>
+                  <select class="field-input" name="status">
+                    ${state.data.settings.chatStatuses.map((status) => `<option value="${status}">${status}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>ส่งรูปแล้วหรือยัง</label>
+                  <select class="field-input" name="sentPhoto">
+                    <option value="false">ยังไม่ส่ง</option>
+                    <option value="true">ส่งแล้ว</option>
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>แพ็กที่เสนอ</label>
+                  <select class="field-input" name="offer">
+                    ${state.data.packages.map((pkg) => `<option value="${pkg.name}">${pkg.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>มูลค่าที่เสนอ</label>
+                  <input class="field-input" name="value" type="number" value="2999">
+                </div>
+                <div class="field-block" style="grid-column: span 2;">
+                  <label>ปัญหา / เหตุผลที่ยังไม่ปิด</label>
+                  <input class="field-input" name="issue" type="text" placeholder="เช่น ยังไม่ส่งรูป หรือ ขอคิดดูก่อน">
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มแชท</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card ${issueChats.length > 0 ? "alert-card" : ""}">
+              <div class="section-head">
+                <div>
+                  <h3>แชทที่มีปัญหา</h3>
+                  <div class="section-sub">ใช้ดูเหตุผลที่ปิดไม่ได้ หรือแชทที่ต้องตามแก้ทันที</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                ${issueChats.length ? issueChats.map((chat) => `
+                  <div class="stat-row"><strong>${chat.customer}</strong><span>${chat.issue || chat.status}</span></div>
+                `).join("") : `<div class="stat-row"><strong>ไม่มีแชทมีปัญหา</strong><span>สถานะดี</span></div>`}
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>รายการแชท</h2>
+              <div class="section-sub">แก้สถานะในตารางได้โดยตรง และแชทที่จ่ายแล้วสามารถกดสร้างออเดอร์ต่อได้</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ลูกค้า</th>
+                  <th>แหล่งที่มา</th>
+                  <th>สถานะ</th>
+                  <th>ส่งรูป</th>
+                  <th>แพ็ก</th>
+                  <th>ปัญหา</th>
+                  <th>ต่อยอด</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${state.data.chats.map((chat) => `
+                  <tr>
+                    <td>${chat.customer}</td>
+                    <td>${chat.source}</td>
+                    <td>
+                      <select class="field-input" data-chat-id="${chat.id}" data-field="status">
+                        ${state.data.settings.chatStatuses.map((status) => `<option value="${status}" ${chat.status === status ? "selected" : ""}>${status}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-chat-id="${chat.id}" data-field="sentPhoto">
+                        <option value="false" ${!chat.sentPhoto ? "selected" : ""}>ยังไม่ส่ง</option>
+                        <option value="true" ${chat.sentPhoto ? "selected" : ""}>ส่งแล้ว</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-chat-id="${chat.id}" data-field="offer">
+                        ${state.data.packages.map((pkg) => `<option value="${pkg.name}" ${chat.offer === pkg.name ? "selected" : ""}>${pkg.name}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="text" value="${chat.issue || ""}" data-chat-id="${chat.id}" data-field="issue"></td>
+                    <td>
+                      ${chat.status === "จ่ายแล้ว"
+                        ? `<button class="primary-btn" type="button" data-create-order-from-chat="${chat.id}">สร้างออเดอร์</button>`
+                        : `<span class="chip blue">รอชำระ</span>`}
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderOrders() {
+      const outstanding = totalOutstandingRevenue();
+      const paidOrders = countPaidOrders();
+      const waitingDelivery = state.data.orders.filter((order) => order.fulfillmentStatus !== "ส่งแล้ว").length;
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ออเดอร์-วางบิล-ส่งงาน</h2>
+              <div class="section-sub">เพิ่มออเดอร์ใหม่ และอัปเดตสถานะตั้งแต่รอชำระจนถึงส่งงาน</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">ยอดค้างชำระ</span><span class="value">${money(outstanding)}</span><span class="hint">รวมออเดอร์ที่ยังไม่ชำระครบ</span></article>
+            <article class="kpi-card"><span class="label">Paid Order</span><span class="value">${paidOrders}</span><span class="hint">นับเมื่อสถานะชำระครบ</span></article>
+            <article class="kpi-card"><span class="label">รอส่งงาน</span><span class="value">${waitingDelivery}</span><span class="hint">รวมงานที่ยังไม่ส่งแล้ว</span></article>
+            <article class="kpi-card"><span class="label">ยอดขายรวม</span><span class="value">${money(totalRevenue())}</span><span class="hint">ขยับตามสถานะชำระเงิน</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มออเดอร์ใหม่</h3>
+                  <div class="section-sub">สร้างจากแพ็กที่มี แล้วเริ่มติดตาม flow เงินเข้าได้ทันที</div>
+                </div>
+              </div>
+              <form id="orderAddForm" class="form-grid">
+                <div class="field-block">
+                  <label>ชื่อลูกค้า</label>
+                  <input class="field-input" name="customer" type="text" placeholder="เช่น ร้านชาไทยบ้านสวน" required>
+                </div>
+                <div class="field-block">
+                  <label>แพ็ก</label>
+                  <select class="field-input" name="packageName">
+                    ${state.data.packages.map((pkg) => `<option value="${pkg.name}">${pkg.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะชำระเงิน</label>
+                  <select class="field-input" name="paymentStatus">
+                    <option value="รอชำระ">รอชำระ</option>
+                    <option value="ชำระครบ">ชำระครบ</option>
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะวางบิล</label>
+                  <select class="field-input" name="billingStatus">
+                    <option value="ยังไม่วางบิล">ยังไม่วางบิล</option>
+                    <option value="วางบิลแล้ว">วางบิลแล้ว</option>
+                    <option value="รับเงินแล้ว">รับเงินแล้ว</option>
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>สถานะงาน</label>
+                  <select class="field-input" name="fulfillmentStatus">
+                    <option value="รอข้อมูล">รอข้อมูล</option>
+                    <option value="กำลังผลิต">กำลังผลิต</option>
+                    <option value="รอตรวจ">รอตรวจ</option>
+                    <option value="ส่งแล้ว">ส่งแล้ว</option>
+                  </select>
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มออเดอร์</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>สถานะที่ต้องจับตา</h3>
+                  <div class="section-sub">ออเดอร์ชำระครบจะพร้อมนับเป็น Paid Order และสร้างงานผลิตต่อ</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>รอชำระ</strong><span>${state.data.orders.filter((order) => order.paymentStatus === "รอชำระ").length} ออเดอร์</span></div>
+                <div class="stat-row"><strong>วางบิลแล้ว</strong><span>${state.data.orders.filter((order) => order.billingStatus === "วางบิลแล้ว").length} ออเดอร์</span></div>
+                <div class="stat-row"><strong>รอตรวจ / กำลังผลิต</strong><span>${state.data.orders.filter((order) => order.fulfillmentStatus === "รอตรวจ" || order.fulfillmentStatus === "กำลังผลิต").length} ออเดอร์</span></div>
+                <div class="stat-row"><strong>ส่งแล้ว</strong><span>${state.data.orders.filter((order) => order.fulfillmentStatus === "ส่งแล้ว").length} ออเดอร์</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>รายการออเดอร์</h2>
+              <div class="section-sub">แก้สถานะในตารางได้โดยตรง แล้วตัวเลขด้านบนจะขยับตามทันที</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ลูกค้า</th>
+                  <th>แพ็ก</th>
+                  <th>ยอดเงิน</th>
+                  <th>ชำระเงิน</th>
+                  <th>วางบิล</th>
+                  <th>ส่งงาน</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${state.data.orders.map((order) => `
+                  <tr>
+                    <td>${order.customer}</td>
+                    <td>${order.packageName}</td>
+                    <td>${money(order.amount)}</td>
+                    <td>
+                      <select class="field-input" data-order-id="${order.id}" data-field="paymentStatus">
+                        <option value="รอชำระ" ${order.paymentStatus === "รอชำระ" ? "selected" : ""}>รอชำระ</option>
+                        <option value="ชำระครบ" ${order.paymentStatus === "ชำระครบ" ? "selected" : ""}>ชำระครบ</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-order-id="${order.id}" data-field="billingStatus">
+                        <option value="ยังไม่วางบิล" ${order.billingStatus === "ยังไม่วางบิล" ? "selected" : ""}>ยังไม่วางบิล</option>
+                        <option value="วางบิลแล้ว" ${order.billingStatus === "วางบิลแล้ว" ? "selected" : ""}>วางบิลแล้ว</option>
+                        <option value="รับเงินแล้ว" ${order.billingStatus === "รับเงินแล้ว" ? "selected" : ""}>รับเงินแล้ว</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select class="field-input" data-order-id="${order.id}" data-field="fulfillmentStatus">
+                        <option value="รอข้อมูล" ${order.fulfillmentStatus === "รอข้อมูล" ? "selected" : ""}>รอข้อมูล</option>
+                        <option value="กำลังผลิต" ${order.fulfillmentStatus === "กำลังผลิต" ? "selected" : ""}>กำลังผลิต</option>
+                        <option value="รอตรวจ" ${order.fulfillmentStatus === "รอตรวจ" ? "selected" : ""}>รอตรวจ</option>
+                        <option value="ส่งแล้ว" ${order.fulfillmentStatus === "ส่งแล้ว" ? "selected" : ""}>ส่งแล้ว</option>
+                      </select>
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderProduction() {
+      const totalJobs = state.data.production.length;
+      const totalImages = totalImagesInProduction();
+      const capacity = totalImagesCapacity();
+      const revisionJobs = state.data.production.filter((item) => item.revisions > 0).length;
+      const overRevisionJobs = state.data.production.filter((item) => item.revisions > 1).length;
+      const revisionRate = totalJobs > 0 ? Math.round((overRevisionJobs / totalJobs) * 100) : 0;
+      const waitingReview = state.data.production.filter((item) => item.status === "รอตรวจ").length;
+      const capacityUsage = capacity > 0 ? Math.round((totalImages / capacity) * 100) : 0;
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ทีมผลิตงาน AI</h2>
+              <div class="section-sub">คุมงานผลิตที่ผูกกับออเดอร์ เห็น owner กำหนดส่ง รอบแก้ และปัญหาที่ต้องจัดการ</div>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">งานผลิตทั้งหมด</span><span class="value">${totalJobs}</span><span class="hint">รวมงานที่เปิดอยู่และส่งแล้ว</span></article>
+            <article class="kpi-card"><span class="label">ภาพค้างผลิต</span><span class="value">${totalImages}</span><span class="hint">จากทุกแพ็กในเดือนนี้</span></article>
+            <article class="kpi-card"><span class="label">ใช้ Capacity</span><span class="value">${capacityUsage}%</span><span class="hint">${totalImages} / ${capacity} ภาพ</span></article>
+            <article class="kpi-card"><span class="label">งานเกินรอบ</span><span class="value">${overRevisionJobs}</span><span class="hint">${revisionRate}% ของงานทั้งหมด</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="two-col">
+            <article class="info-card">
+              <div class="section-head">
+                <div>
+                  <h3>เพิ่มงานผลิต</h3>
+                  <div class="section-sub">ใช้เมื่ออยากสร้างงานเอง หรือผูกกับออเดอร์ที่มีอยู่แล้ว</div>
+                </div>
+              </div>
+              <form id="productionAddForm" class="form-grid three">
+                <div class="field-block">
+                  <label>ออเดอร์</label>
+                  <select class="field-input" name="orderId">
+                    <option value="">ไม่ผูกออเดอร์</option>
+                    ${state.data.orders.map((order) => `<option value="${order.id}">${order.customer} · ${order.packageName}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>ลูกค้า</label>
+                  <input class="field-input" name="customer" type="text" placeholder="เช่น ร้านชาไทยบ้านสวน" required>
+                </div>
+                <div class="field-block">
+                  <label>แพ็ก</label>
+                  <select class="field-input" name="packageName">
+                    ${state.data.packages.map((pkg) => `<option value="${pkg.name}">${pkg.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>จำนวนภาพ</label>
+                  <input class="field-input" name="images" type="number" value="15">
+                </div>
+                <div class="field-block">
+                  <label>คนรับผิดชอบ</label>
+                  <select class="field-input" name="owner">
+                    ${state.data.settings.team.map((person) => `<option value="${person}">${person}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>กำหนดส่ง</label>
+                  <input class="field-input" name="dueDate" type="date" value="${state.date}">
+                </div>
+                <div class="field-block">
+                  <label>สถานะ</label>
+                  <select class="field-input" name="status">
+                    ${state.data.settings.productionStatuses.map((status) => `<option value="${status}">${status}</option>`).join("")}
+                  </select>
+                </div>
+                <div class="field-block">
+                  <label>รอบแก้</label>
+                  <input class="field-input" name="revisions" type="number" value="0">
+                </div>
+                <div class="field-block">
+                  <label>ปัญหา</label>
+                  <input class="field-input" name="issue" type="text" placeholder="เช่น รอลูกค้าส่งรูป">
+                </div>
+                <div class="field-block" style="align-self:end;">
+                  <button class="primary-btn" type="submit">เพิ่มงานผลิต</button>
+                </div>
+              </form>
+            </article>
+
+            <article class="info-card ${revisionRate >= 20 ? "alert-card" : ""}">
+              <div class="section-head">
+                <div>
+                  <h3>สรุปโหลดงาน</h3>
+                  <div class="section-sub">ใช้ดูว่าควรเพิ่มงานแพ็ก 2,999 ต่อได้อีกไหม และต้องปรับ brief หรือเปล่า</div>
+                </div>
+              </div>
+              <div class="stat-list">
+                <div class="stat-row"><strong>งานรอตรวจ</strong><span>${waitingReview} งาน</span></div>
+                <div class="stat-row"><strong>งานมีรอบแก้</strong><span>${revisionJobs} งาน</span></div>
+                <div class="stat-row"><strong>งานเกินรอบ</strong><span>${overRevisionJobs} งาน</span></div>
+                <div class="stat-row"><strong>สัดส่วนงานเกินรอบ</strong><span>${revisionRate}%</span></div>
+              </div>
+              <div class="inline-note">
+                ${revisionRate >= 20
+                  ? "งานเกินรอบแตะ 20% แล้ว ควรเตือนให้ปรับ brief หรือวิธีรับบรีฟก่อนงานใหม่จะชนคิว"
+                  : "สัดส่วนงานเกินรอบยังไม่ถึง 20% แต่ควรจับตางานที่เริ่มแก้หลายครั้ง"}
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ตารางงานผลิต</h2>
+              <div class="section-sub">แก้ owner สถานะ รอบแก้ และปัญหาได้โดยตรงจากตาราง</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ลูกค้า</th>
+                  <th>แพ็ก</th>
+                  <th>ภาพ</th>
+                  <th>คนรับผิดชอบ</th>
+                  <th>กำหนดส่ง</th>
+                  <th>สถานะ</th>
+                  <th>รอบแก้</th>
+                  <th>ปัญหา</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${state.data.production.map((item) => `
+                  <tr>
+                    <td>${item.customer}</td>
+                    <td>${item.packageName}</td>
+                    <td><input class="field-input" type="number" value="${item.images}" data-production-id="${item.id}" data-field="images"></td>
+                    <td>
+                      <select class="field-input" data-production-id="${item.id}" data-field="owner">
+                        ${state.data.settings.team.map((person) => `<option value="${person}" ${item.owner === person ? "selected" : ""}>${person}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="date" value="${item.dueDate}" data-production-id="${item.id}" data-field="dueDate"></td>
+                    <td>
+                      <select class="field-input" data-production-id="${item.id}" data-field="status">
+                        ${state.data.settings.productionStatuses.map((status) => `<option value="${status}" ${item.status === status ? "selected" : ""}>${status}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="field-input" type="number" value="${item.revisions}" data-production-id="${item.id}" data-field="revisions"></td>
+                    <td><input class="field-input" type="text" value="${item.issue || ""}" data-production-id="${item.id}" data-field="issue"></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderReports() {
+      const revenue = totalRevenue();
+      const expenses = totalExpenses();
+      const profit = revenue - expenses;
+      const reserve = state.data.cashReserve[0];
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>รายงานและตั้งค่า</h2>
+              <div class="section-sub">เป้า รายได้ ค่าใช้จ่าย เงินสดเย็น และกติกาธุรกิจ</div>
+            </div>
+          </div>
+          <div class="three-col">
+            <article class="info-card">
+              <h3>เป้าธุรกิจ</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>เป้าขั้นต่ำ/เดือน</strong><span>${money(state.data.businessTargets.monthlyMinimumRevenue)}</span></div>
+                <div class="stat-row"><strong>เป้าดี/เดือน</strong><span>${money(state.data.businessTargets.monthlyGoodRevenue)}</span></div>
+                <div class="stat-row"><strong>เงินสดเย็นเป้า</strong><span>${money(state.data.businessTargets.cashReserveTarget)}</span></div>
+              </div>
+              <div class="form-grid">
+                <div class="field-block">
+                  <label>เป้าขั้นต่ำ/เดือน</label>
+                  <input class="field-input" type="number" value="${state.data.businessTargets.monthlyMinimumRevenue}" data-target-field="monthlyMinimumRevenue">
+                </div>
+                <div class="field-block">
+                  <label>เป้าดี/เดือน</label>
+                  <input class="field-input" type="number" value="${state.data.businessTargets.monthlyGoodRevenue}" data-target-field="monthlyGoodRevenue">
+                </div>
+                <div class="field-block">
+                  <label>เงินสดเย็นเป้า</label>
+                  <input class="field-input" type="number" value="${state.data.businessTargets.cashReserveTarget}" data-target-field="cashReserveTarget">
+                </div>
+                <div class="field-block">
+                  <label>เงินเก็บ/เดือน</label>
+                  <input class="field-input" type="number" value="${state.data.businessTargets.monthlyReserveGoal}" data-target-field="monthlyReserveGoal">
+                </div>
+              </div>
+              <div class="inline-note">ราคาแพ็กที่แก้ด้านบนจะคำนวณเป้าขั้นต่ำและเป้าดีใหม่ให้อัตโนมัติ</div>
+            </article>
+            <article class="info-card">
+              <h3>ค่าใช้จ่าย</h3>
+              <div class="stat-list">
+                ${state.data.expenses.map((item) => `
+                  <div class="stat-row"><strong>${item.label}</strong><span>${money(item.amount)}</span></div>
+                `).join("")}
+                <div class="stat-row"><strong>กำไรประมาณการ</strong><span>${money(profit)}</span></div>
+              </div>
+              <div class="form-grid">
+                ${state.data.expenses.map((item) => `
+                  <div class="field-block">
+                    <label>${item.label}</label>
+                    <input class="field-input" type="number" value="${item.amount}" data-expense-id="${item.id}">
+                  </div>
+                `).join("")}
+              </div>
+            </article>
+            <article class="info-card">
+              <h3>กติกาธุรกิจและเงินสดเย็น</h3>
+              <div class="chip-row">
+                ${state.data.settings.rules.map((rule) => `<span class="chip sun">${rule}</span>`).join("")}
+              </div>
+              <div class="form-grid" style="margin-top:12px;">
+                <div class="field-block">
+                  <label>เงินสดเย็นเดือนนี้</label>
+                  <input class="field-input" type="number" value="${reserve.saved}" data-reserve-saved="true">
+                </div>
+                <div class="field-block">
+                  <label>เงินสดเย็นสะสม</label>
+                  <input class="field-input" type="number" value="${reserve.total}" disabled>
+                </div>
+              </div>
+              <div class="empty-state" style="margin-top:12px;">เมื่อแก้จำนวนภาพต่อแพ็ก Capacity ทั้งเดือนจะเปลี่ยนตามทันที และเมื่อแก้ค่าใช้จ่าย 8,000 บาท กำไรประมาณการจะเปลี่ยนตามตรงนี้</div>
+            </article>
+          </div>
+        </section>
+      `;
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
+    function downloadCsv(filename, rows) {
+      if (!rows.length) return;
+      const headers = Object.keys(rows[0]);
+      const csv = [
+        headers.map(csvEscape).join(","),
+        ...rows.map((row) => headers.map((key) => csvEscape(row[key])).join(","))
+      ].join("\n");
+      const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function buildSystemAudit() {
+      const paidChats = state.data.chats.filter((chat) => chat.status === "จ่ายแล้ว");
+      const paidChatsWithoutOrders = paidChats.filter((chat) => {
+        return !state.data.orders.some((order) => order.customer === chat.customer && order.packageName === chat.offer);
+      });
+
+      const paidOrders = state.data.orders.filter((order) => order.paymentStatus === "ชำระครบ");
+      const paidOrdersWithoutProduction = paidOrders.filter((order) => {
+        return !state.data.production.some((job) => job.orderId === order.id || (job.customer === order.customer && job.packageName === order.packageName));
+      });
+
+      const deliveredProductionWithoutOrderSync = state.data.production.filter((job) => {
+        if (job.status !== "ส่งแล้ว") return false;
+        const order = state.data.orders.find((item) => item.id === job.orderId || (item.customer === job.customer && item.packageName === job.packageName));
+        return order && order.fulfillmentStatus !== "ส่งแล้ว";
+      });
+
+      const overRevisionJobs = state.data.production.filter((job) => Number(job.revisions || 0) > 1);
+      const adOverBudget = totalRevenue() > 0
+        ? adsExpenseTotal() > (totalRevenue() * state.data.businessTargets.adsPercentMax / 100)
+        : false;
+
+      let storageOk = true;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+      } catch {
+        storageOk = false;
+      }
+
+      const checks = [
+        {
+          key: "paid-chat-to-order",
+          label: "แชทที่จ่ายแล้วต้องมีออเดอร์",
+          pass: paidChatsWithoutOrders.length === 0,
+          detail: paidChatsWithoutOrders.length === 0 ? `ผ่าน ${paidChats.length} แชท` : `ตกหล่น ${paidChatsWithoutOrders.length} แชท`
+        },
+        {
+          key: "paid-order-to-production",
+          label: "ออเดอร์ชำระครบต้องมีงานผลิต",
+          pass: paidOrdersWithoutProduction.length === 0,
+          detail: paidOrdersWithoutProduction.length === 0 ? `ผ่าน ${paidOrders.length} ออเดอร์` : `ยังไม่สร้าง ${paidOrdersWithoutProduction.length} งาน`
+        },
+        {
+          key: "delivery-sync",
+          label: "งานผลิตส่งแล้วต้อง sync สถานะออเดอร์",
+          pass: deliveredProductionWithoutOrderSync.length === 0,
+          detail: deliveredProductionWithoutOrderSync.length === 0 ? "สถานะสอดคล้องกัน" : `ไม่ sync ${deliveredProductionWithoutOrderSync.length} งาน`
+        },
+        {
+          key: "ad-budget",
+          label: "ค่าแอดต้องไม่เกินกรอบที่ตั้งไว้",
+          pass: !adOverBudget,
+          detail: `${money(adsExpenseTotal())} จากกรอบ ${state.data.businessTargets.adsPercentMax}%`
+        },
+        {
+          key: "revisions",
+          label: "งานเกินรอบต้องถูกมองเห็น",
+          pass: true,
+          detail: `${overRevisionJobs.length} งานเกินรอบในระบบ`
+        },
+        {
+          key: "storage",
+          label: "localStorage พร้อมบันทึกข้อมูล",
+          pass: storageOk,
+          detail: storageOk ? "บันทึกข้อมูลได้" : "บันทึกข้อมูลไม่ได้"
+        }
+      ];
+
+      return {
+        checks,
+        paidChatsWithoutOrders,
+        paidOrdersWithoutProduction,
+        deliveredProductionWithoutOrderSync,
+        overRevisionJobs
+      };
+    }
+
+    function buildSyncAudit() {
+      ensureSyncState(state.data);
+      const outbox = state.data.sync.outbox || [];
+      const pending = outbox.filter((item) => item.status === "pending");
+      const accepted = outbox.filter((item) => item.status === "accepted");
+      const ordersPending = pending.filter((item) => item.entity === "orders").length;
+      const productionPending = pending.filter((item) => item.entity === "production_jobs").length;
+
+      return {
+        mode: state.data.sync.mode,
+        backendStatus: state.data.sync.backendStatus,
+        clientId: state.data.sync.clientId,
+        pendingCount: pending.length,
+        acceptedCount: accepted.length,
+        ordersPending,
+        productionPending,
+        lastAttemptAt: state.data.sync.lastAttemptAt,
+        lastSuccessAt: state.data.sync.lastSuccessAt,
+        history: (state.data.sync.history || []).slice(0, 5),
+        payloadPreview: JSON.stringify(buildSyncPayload(), null, 2)
+      };
+    }
+
+    function renderSyncCenter() {
+      const sync = buildSyncAudit();
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>Sync Center</h2>
+              <div class="section-sub">ชั้นกลางสำหรับต่อ backend sync และเปิดทางให้ AI agent ทำงานบนข้อมูลชุดเดียวกัน</div>
+            </div>
+            <div class="chip-row">
+              <span class="chip blue">${sync.mode}</span>
+              <span class="chip ${sync.pendingCount ? "warn" : "sun"}">${sync.pendingCount} pending</span>
+            </div>
+          </div>
+          <div class="two-col">
+            <article class="info-card">
+              <div class="stat-list">
+                <div class="stat-row"><strong>Backend status</strong><span>${sync.backendStatus}</span></div>
+                <div class="stat-row"><strong>Client ID</strong><span>${sync.clientId}</span></div>
+                <div class="stat-row"><strong>Orders รอ sync</strong><span>${sync.ordersPending}</span></div>
+                <div class="stat-row"><strong>Production รอ sync</strong><span>${sync.productionPending}</span></div>
+                <div class="stat-row"><strong>Sync สำเร็จล่าสุด</strong><span>${sync.lastSuccessAt || "-"}</span></div>
+              </div>
+              <div class="chip-row">
+                <button class="ghost-btn" type="button" data-sync-action="export">Export Sync JSON</button>
+                <button class="primary-btn" type="button" data-sync-action="simulate">จำลอง sync ขึ้นฐานกลาง</button>
+              </div>
+            </article>
+            <article class="info-card">
+              <h3>Payload Preview</h3>
+              <textarea class="field-input" style="min-height:240px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace;">${sync.payloadPreview}</textarea>
+            </article>
+          </div>
+        </section>
+      `;
+    }
+
+    function exportReportDataset(dataset) {
+      const map = {
+        orders: state.data.orders.map((item) => ({
+          customer: item.customer,
+          packageName: item.packageName,
+          amount: item.amount,
+          paymentStatus: item.paymentStatus,
+          billingStatus: item.billingStatus,
+          fulfillmentStatus: item.fulfillmentStatus
+        })),
+        chats: state.data.chats.map((item) => ({
+          customer: item.customer,
+          source: item.source,
+          status: item.status,
+          sentPhoto: item.sentPhoto,
+          offer: item.offer,
+          value: item.value,
+          issue: item.issue
+        })),
+        production: state.data.production.map((item) => ({
+          customer: item.customer,
+          packageName: item.packageName,
+          images: item.images,
+          owner: item.owner,
+          dueDate: item.dueDate,
+          status: item.status,
+          revisions: item.revisions,
+          issue: item.issue
+        })),
+        content: state.data.contentPosts.map((item) => ({
+          date: item.date,
+          channel: item.channel,
+          title: item.title,
+          owner: item.owner || "",
+          status: item.status,
+          reach: item.reach || 0,
+          chatCount: item.chatCount || 0,
+          sentPhotoCount: item.sentPhotoCount || 0,
+          paidOrderCount: item.paidOrderCount || 0,
+          revenue: item.revenue || 0
+        })),
+        adCreatives: state.data.weeklyAdCreatives.map((item) => ({
+          week: item.week,
+          title: item.title,
+          angle: item.angle || "",
+          targetPackage: item.targetPackage,
+          campaignName: item.campaignName || "",
+          owner: item.owner || "",
+          status: item.status,
+          chats: item.chats || 0,
+          sentPhotoCount: item.sentPhotoCount || 0,
+          paidOrders: item.paidOrders || 0
+        })),
+        campaigns: state.data.adCampaigns.map((item) => ({
+          name: item.name,
+          budgetPerDay: item.budgetPerDay,
+          spend: item.spend,
+          targetPackage: item.targetPackage,
+          chats: item.chats,
+          sentPhotoCount: item.sentPhotoCount,
+          paidOrders: item.paidOrders,
+          revenue: item.revenue
+        }))
+      };
+
+      const rows = map[dataset];
+      if (!rows || !rows.length) return;
+      downloadCsv(`morning-pic-369-${dataset}.csv`, rows);
+    }
+
+    function bindReportActions() {
+      document.querySelectorAll("[data-export-report]").forEach((button) => {
+        button.addEventListener("click", () => {
+          exportReportDataset(button.dataset.exportReport);
+        });
+      });
+
+      document.querySelectorAll("[data-sync-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (button.dataset.syncAction === "export") {
+            exportSyncPayload();
+          }
+          if (button.dataset.syncAction === "simulate") {
+            simulateSyncSuccess();
+          }
+        });
+      });
+    }
+
+    function renderReportsV2() {
+      const revenue = totalRevenue();
+      const expenses = totalExpenses();
+      const profit = revenue - expenses;
+      const reserve = state.data.cashReserve[0];
+      const audit = buildSystemAudit();
+      const packageSummary = state.data.packages.map((pkg) => {
+        const paidOrders = state.data.orders.filter((order) => order.packageName === pkg.name && order.paymentStatus === "ชำระครบ");
+        const count = paidOrders.length;
+        return {
+          name: pkg.name,
+          count,
+          revenue: paidOrders.reduce((sum, order) => sum + order.amount, 0)
+        };
+      }).sort((a, b) => b.revenue - a.revenue);
+      const topPackage = packageSummary[0];
+      const contentWinner = [...state.data.contentPosts]
+        .sort((a, b) => ((b.paidOrderCount || 0) * 1000 + (b.chatCount || 0)) - ((a.paidOrderCount || 0) * 1000 + (a.chatCount || 0)))[0];
+      const adWinner = [...state.data.adCampaigns]
+        .sort((a, b) => ((b.paidOrders || 0) * 1000 + (b.revenue || 0)) - ((a.paidOrders || 0) * 1000 + (a.revenue || 0)))[0];
+      const heavyProduction = [...state.data.production]
+        .sort((a, b) => ((b.revisions || 0) * 100 + (b.images || 0)) - ((a.revisions || 0) * 100 + (a.images || 0)))[0];
+      const quickChatSegments = state.data.chats.reduce((acc, chat) => {
+        const key = chat.offer || "ไม่ระบุ";
+        acc[key] = acc[key] || { offer: key, total: 0, sentPhoto: 0, paid: 0 };
+        acc[key].total += 1;
+        acc[key].sentPhoto += chat.sentPhoto ? 1 : 0;
+        acc[key].paid += chat.status === "จ่ายแล้ว" ? 1 : 0;
+        return acc;
+      }, {});
+      const bestChatSegment = Object.values(quickChatSegments)
+        .sort((a, b) => ((b.paid / Math.max(b.total, 1)) - (a.paid / Math.max(a.total, 1))))[0];
+      const pendingOrders = state.data.orders.filter((item) => item.paymentStatus !== "ชำระครบ" || item.fulfillmentStatus !== "ส่งแล้ว").length;
+
+      return `
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>รายงานรายสัปดาห์และรายเดือน</h2>
+              <div class="section-sub">สรุปผลแบบตอบคำถามธุรกิจ พร้อมปุ่ม export ตารางหลักออกไปใช้ต่อ</div>
+            </div>
+            <div class="chip-row">
+              <span class="chip blue">รายได้ ${money(revenue)}</span>
+              <span class="chip sun">กำไรประมาณการ ${money(profit)}</span>
+              <span class="chip warn">ค้างติดตาม ${pendingOrders} รายการ</span>
+            </div>
+          </div>
+          <div class="kpi-grid">
+            <article class="kpi-card"><span class="label">รายได้รวม</span><span class="value">${money(revenue)}</span><span class="hint">ชำระครบแล้วทั้งหมด</span></article>
+            <article class="kpi-card"><span class="label">ค่าใช้จ่ายรวม</span><span class="value">${money(expenses)}</span><span class="hint">รวมแอดและค่าผลิต</span></article>
+            <article class="kpi-card"><span class="label">กำไรสุทธิประมาณการ</span><span class="value">${money(profit)}</span><span class="hint">${profit >= state.data.businessTargets.targetProfitLow ? "ถึงขั้นต่ำแล้ว" : "ยังต่ำกว่าเป้าขั้นต่ำ"}</span></article>
+            <article class="kpi-card"><span class="label">เงินสดเย็นสะสม</span><span class="value">${money(reserve.total)}</span><span class="hint">เก็บเพิ่มเดือนนี้ ${money(reserve.saved)}</span></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>คำตอบ 5 คำถามธุรกิจ</h2>
+              <div class="section-sub">ใช้แทน weekly operating review ได้ทันทีในเวอร์ชันแรก</div>
+            </div>
+          </div>
+          <div class="three-col">
+            <article class="info-card">
+              <h3>1. แพ็กไหนทำเงินจริงสุด</h3>
+              <div class="stat-list">
+                ${packageSummary.map((item) => `
+                  <div class="stat-row"><strong>${item.name}</strong><span>${item.count} ออเดอร์ • ${money(item.revenue)}</span></div>
+                `).join("")}
+              </div>
+              <div class="inline-note">${topPackage ? `ตอนนี้ตัวหลักคือ ${topPackage.name} จาก ${topPackage.count} ออเดอร์` : "ยังไม่มีออเดอร์ชำระครบ"}</div>
+            </article>
+
+            <article class="info-card">
+              <h3>2. คอนเทนต์ไหนพาแชทและยอด</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>โพสต์เด่นสุด</strong><span>${contentWinner ? contentWinner.title : "-"}</span></div>
+                <div class="stat-row"><strong>แชทจากโพสต์เด่น</strong><span>${contentWinner ? contentWinner.chatCount || 0 : 0}</span></div>
+                <div class="stat-row"><strong>Paid จากโพสต์เด่น</strong><span>${contentWinner ? contentWinner.paidOrderCount || 0 : 0}</span></div>
+              </div>
+              <div class="inline-note">${contentWinner ? `${contentWinner.channel} วันที่ ${contentWinner.date}` : "เริ่มกรอกผลหลังโพสต์เพื่อให้รีพอร์ตชุดนี้แม่นขึ้น"}</div>
+            </article>
+
+            <article class="info-card">
+              <h3>3. แอดไหนพาคนคุณภาพเข้า</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>แคมเปญเด่น</strong><span>${adWinner ? adWinner.name : "-"}</span></div>
+                <div class="stat-row"><strong>Paid Order</strong><span>${adWinner ? adWinner.paidOrders || 0 : 0}</span></div>
+                <div class="stat-row"><strong>รายได้จากแคมเปญ</strong><span>${adWinner ? money(adWinner.revenue || 0) : 0}</span></div>
+              </div>
+              <div class="inline-note">${adWinner ? `ต้นทุนต่อปิดประมาณ ${money((adWinner.spend || 0) / Math.max(adWinner.paidOrders || 0, 1))}` : "ยังไม่มีข้อมูลแคมเปญพอ"}</div>
+            </article>
+          </div>
+          <div class="two-col" style="margin-top:14px;">
+            <article class="info-card">
+              <h3>4. กลุ่มลูกค้าไหนตอบไวและจ่ายจริง</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>กลุ่มที่เด่นสุด</strong><span>${bestChatSegment ? bestChatSegment.offer : "-"}</span></div>
+                <div class="stat-row"><strong>ส่งรูปต่อแชท</strong><span>${bestChatSegment ? Math.round((bestChatSegment.sentPhoto / Math.max(bestChatSegment.total, 1)) * 100) : 0}%</span></div>
+                <div class="stat-row"><strong>จ่ายจริงต่อแชท</strong><span>${bestChatSegment ? Math.round((bestChatSegment.paid / Math.max(bestChatSegment.total, 1)) * 100) : 0}%</span></div>
+              </div>
+              <div class="inline-note">${bestChatSegment ? `กลุ่ม ${bestChatSegment.offer} มี ${bestChatSegment.total} แชทในข้อมูลตอนนี้` : "ยังไม่มีข้อมูลแชทพอ"}</div>
+            </article>
+
+            <article class="info-card">
+              <h3>5. งานไหนเริ่มกินกำไร</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>งานน่าจับตา</strong><span>${heavyProduction ? heavyProduction.customer : "-"}</span></div>
+                <div class="stat-row"><strong>แพ็ก / จำนวนภาพ</strong><span>${heavyProduction ? `${heavyProduction.packageName} • ${heavyProduction.images} ภาพ` : "-"}</span></div>
+                <div class="stat-row"><strong>รอบแก้ / สถานะ</strong><span>${heavyProduction ? `${heavyProduction.revisions} รอบ • ${heavyProduction.status}` : "-"}</span></div>
+              </div>
+              <div class="inline-note">${heavyProduction ? `ถ้า ${heavyProduction.revisions} รอบเริ่มกลายเป็นปกติ ควรปรับ brief หรือขอบเขตแพ็ก` : "ยังไม่มีงานที่หนักผิดปกติ"}</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>ส่งออกข้อมูล</h2>
+              <div class="section-sub">กดดาวน์โหลด CSV ได้อย่างน้อย 5 ตารางสำหรับเอาไปใช้ต่อใน Sheets หรือทำรีพอร์ตภายนอก</div>
+            </div>
+          </div>
+          <div class="package-grid">
+            <article class="info-card package-card"><strong>Orders</strong><p>ออเดอร์ การชำระ วางบิล และสถานะส่งงาน</p><button class="ghost-btn" type="button" data-export-report="orders">Export CSV</button></article>
+            <article class="info-card package-card"><strong>Chats</strong><p>แหล่งที่มา สถานะแชท การส่งรูป และมูลค่าที่เสนอ</p><button class="ghost-btn" type="button" data-export-report="chats">Export CSV</button></article>
+            <article class="info-card package-card"><strong>Production</strong><p>งานผลิต คนรับผิดชอบ รอบแก้ และปัญหาหน้างาน</p><button class="ghost-btn" type="button" data-export-report="production">Export CSV</button></article>
+            <article class="info-card package-card"><strong>Content Posts</strong><p>โพสต์เพจ ผลหลังลง Reach แชท Paid และรายได้</p><button class="ghost-btn" type="button" data-export-report="content">Export CSV</button></article>
+            <article class="info-card package-card"><strong>Ad Creatives</strong><p>ชิ้นงานยิงแอดรายสัปดาห์ มุมขาย และผลลัพธ์</p><button class="ghost-btn" type="button" data-export-report="adCreatives">Export CSV</button></article>
+            <article class="info-card package-card"><strong>Campaigns</strong><p>งบแคมเปญ ค่าใช้จริง แชท ส่งรูป Paid และรายได้</p><button class="ghost-btn" type="button" data-export-report="campaigns">Export CSV</button></article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="three-col">
+            <article class="info-card">
+              <h3>เป้าธุรกิจ</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>เป้าขั้นต่ำ/เดือน</strong><span>${money(state.data.businessTargets.monthlyMinimumRevenue)}</span></div>
+                <div class="stat-row"><strong>เป้าดี/เดือน</strong><span>${money(state.data.businessTargets.monthlyGoodRevenue)}</span></div>
+                <div class="stat-row"><strong>เงินสดเย็นเป้า</strong><span>${money(state.data.businessTargets.cashReserveTarget)}</span></div>
+              </div>
+            </article>
+            <article class="info-card">
+              <h3>สถานะเทียบเป้า</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>ถึงเป้าขั้นต่ำ</strong><span>${Math.round((revenue / Math.max(state.data.businessTargets.monthlyMinimumRevenue, 1)) * 100)}%</span></div>
+                <div class="stat-row"><strong>ถึงเป้าดี</strong><span>${Math.round((revenue / Math.max(state.data.businessTargets.monthlyGoodRevenue, 1)) * 100)}%</span></div>
+                <div class="stat-row"><strong>ถึงเงินสดเย็นเป้า</strong><span>${Math.round((reserve.total / Math.max(state.data.businessTargets.cashReserveTarget, 1)) * 100)}%</span></div>
+              </div>
+            </article>
+            <article class="info-card">
+              <h3>ข้อสังเกตเร็ว</h3>
+              <div class="chip-row">
+                <span class="chip ${profit >= state.data.businessTargets.targetProfitLow ? "blue" : "warn"}">${profit >= state.data.businessTargets.targetProfitLow ? "กำไรถึงขั้นต่ำ" : "กำไรยังไม่ถึงขั้นต่ำ"}</span>
+                <span class="chip ${(adsExpenseTotal() <= (revenue * state.data.businessTargets.adsPercentMax / 100)) ? "blue" : "danger"}">${(revenue > 0 && adsExpenseTotal() <= (revenue * state.data.businessTargets.adsPercentMax / 100)) ? "ค่าแอดยังอยู่ในกรอบ" : "ค่าแอดเริ่มสูง"}</span>
+                <span class="chip ${pendingOrders <= 3 ? "sun" : "warn"}">${pendingOrders <= 3 ? "งานค้างยังพอคุมได้" : "งานค้างเริ่มเยอะ"}</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        ${renderSyncCenter()}
+
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <h2>System Check</h2>
+              <div class="section-sub">เช็ก flow หลัก กฎธุรกิจ และความพร้อมของข้อมูลก่อนใช้งานจริง</div>
+            </div>
+            <div class="chip-row">
+              <span class="chip ${audit.checks.every((item) => item.pass) ? "blue" : "warn"}">${audit.checks.filter((item) => item.pass).length}/${audit.checks.length} checks ผ่าน</span>
+            </div>
+          </div>
+          <div class="two-col">
+            <article class="info-card">
+              <div class="stat-list">
+                ${audit.checks.map((item) => `
+                  <div class="stat-row">
+                    <strong>${item.label}</strong>
+                    <span>${item.pass ? "ผ่าน" : "ต้องดู"} • ${item.detail}</span>
+                  </div>
+                `).join("")}
+              </div>
+            </article>
+            <article class="info-card">
+              <h3>จุดที่ควรตามต่อ</h3>
+              <div class="stat-list">
+                <div class="stat-row"><strong>แชทจ่ายแล้วแต่ออเดอร์ยังไม่มา</strong><span>${audit.paidChatsWithoutOrders.length} รายการ</span></div>
+                <div class="stat-row"><strong>ออเดอร์ชำระครบแต่งานผลิตยังไม่ขึ้น</strong><span>${audit.paidOrdersWithoutProduction.length} รายการ</span></div>
+                <div class="stat-row"><strong>งานส่งแล้วแต่สถานะออเดอร์ยังไม่ sync</strong><span>${audit.deliveredProductionWithoutOrderSync.length} รายการ</span></div>
+                <div class="stat-row"><strong>งานเกินรอบแก้</strong><span>${audit.overRevisionJobs.length} งาน</span></div>
+              </div>
+              <div class="inline-note">
+                ${audit.checks.every((item) => item.pass)
+                  ? "โฟลว์หลักของระบบผ่านทั้งหมดในข้อมูลชุดนี้ พร้อมใช้เป็นฐานต่อยอดหรือเริ่มทดสอบงานจริง"
+                  : "ยังมีบางจุดที่ระบบมองเห็นและแจ้งไว้แล้ว คุณใช้ส่วนนี้เป็น checklist ก่อนเริ่มใช้กับข้อมูลจริงได้เลย"}
+              </div>
+            </article>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderContent() {
+      const sections = {
+        overview: renderOverview() + renderPackages(),
+        "content-calendar": renderContentCalendarV2(),
+        "weekly-ads": renderWeeklyAdsV2(),
+        "ad-monitor": renderAdMonitor(),
+        "chat-monitor": renderChatMonitor(),
+        orders: renderOrders(),
+        production: renderProduction(),
+        reports: renderReportsV2()
+      };
+
+      const content = document.getElementById("content");
+      content.innerHTML = sections[state.activeMenu] || `<section class="section"><div class="empty-state">ยังไม่มีเนื้อหาส่วนนี้</div></section>`;
+      bindTask3Editors();
+      bindContentEditors();
+      bindWeeklyAdsEditors();
+      bindChatEditors();
+      bindAdEditors();
+      bindOrderEditors();
+      bindProductionEditors();
+      bindReportActions();
+    }
+
+    function renderTopbar() {
+      const menu = menus.find((item) => item.id === state.activeMenu);
+      document.getElementById("pageTitle").textContent = menu ? menu.label : "Morning Pic 369";
+      document.getElementById("pageSubtitle").textContent = `${state.data.settings.businessName} · ข้อมูลตัวอย่างพร้อมใช้งานในเครื่อง`;
+      document.getElementById("rangeSelect").value = state.range;
+      document.getElementById("dateInput").value = state.date;
+    }
+
+    function render() {
+      renderMenu();
+      renderTopbar();
+      renderContent();
+    }
+
+    document.getElementById("resetDataBtn").addEventListener("click", resetData);
+    document.getElementById("rangeSelect").addEventListener("change", (event) => {
+      state.range = event.target.value;
+      renderTopbar();
+    });
+    document.getElementById("dateInput").addEventListener("change", (event) => {
+      state.date = event.target.value;
+      renderTopbar();
+    });
+
+    render();
+  </script>
+</body>
+</html>
